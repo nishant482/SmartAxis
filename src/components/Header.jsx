@@ -39,7 +39,7 @@ export default function Header() {
     window.addEventListener('resize', onResize)
     return () => { document.body.style.overflow = previous; document.removeEventListener('keydown', onKey); window.removeEventListener('resize', onResize) }
   }, [open, setOpen])
-  const links = [['Home', '/'], ['Services', '/services'], ['Solutions', '/solutions'], ['Our work', '/portfolio'], ['About', '/about'], ['Process', '/process']]
+  const links = [['Home', '/'], ['Services', '/services'], ['Solutions', '/solutions'], ['Products', '/portfolio'], ['About', '/about'], ['Process', '/process']]
   return <header className={`site-header header-shell ${open ? 'header-menu-open' : ''}`}>
     <div className="container navigation">
       <Brand />
@@ -47,7 +47,7 @@ export default function Header() {
         {links.map(([label, to]) => <Link key={to} to={to} aria-current={(to === '/' ? path === '/' : path.startsWith(to)) ? 'page' : undefined} onClick={() => setOpen(false)}>{label}</Link>)}
         <Link to="/contact" className="mobile-contact" onClick={() => setOpen(false)}>Contact us</Link>
       </nav>
-      <Link to="/contact" className="header-contact" aria-current={path === '/contact' ? 'page' : undefined} onClick={() => setOpen(false)}><span className="contact-label-desktop">Start a project</span><span className="contact-label-mobile">Let’s talk</span><span className="contact-arrow"><Icon name="diagonal" size={16}/></span></Link>
+      <Link to="/contact" className="header-contact" aria-current={path === '/contact' ? 'page' : undefined} onClick={() => setOpen(false)}><span className="contact-label-desktop">Let’s talk</span><span className="contact-label-mobile">Let’s talk</span><span className="contact-arrow"><Icon name="diagonal" size={16}/></span></Link>
       <button ref={toggle} className="menu-toggle" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="main-navigation" onClick={() => setOpen(!open)}>{open ? '✕' : <><span/><span/></>}</button>
     </div>
   </header>

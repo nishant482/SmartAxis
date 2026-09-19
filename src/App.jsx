@@ -5,6 +5,7 @@ import { useRouter } from './lib/RouterContext'
 import { updateMetadata } from './lib/seo'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import WhatsAppButton from './components/WhatsAppButton'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import ServiceDetail from './pages/ServiceDetail'
@@ -25,7 +26,7 @@ const pages = {
   '/': [Home, 'Digital experiences. Real impact.'],
   '/services': [Services, 'Our expertise'],
   '/solutions': [Solutions, 'Solutions for your business'],
-  '/portfolio': [Portfolio, 'Selected work'],
+  '/portfolio': [Portfolio, 'Successful Delivered Products'],
   '/about': [About, 'The studio'],
   '/process': [Process, 'Our approach'],
   '/contact': [Contact, 'Let’s talk'],
@@ -49,7 +50,7 @@ function Site() {
   }, [path, title, serviceSlug, projectSlug, isAdmin])
 
   if (isAdmin) return <Suspense fallback={<div className="resource-state">Loading admin…</div>}><Admin/></Suspense>
-  return <><a href="#main" className="skip-link">Skip to content</a><Header/><main ref={main} id="main" tabIndex={-1}>{serviceSlug ? <ServiceDetail key={path} slug={serviceSlug}/> : projectSlug ? <ProjectDetail key={path} slug={projectSlug}/> : <Page key={path}/>}</main><Footer/></>
+  return <><a href="#main" className="skip-link">Skip to content</a><Header/><main ref={main} id="main" tabIndex={-1}>{serviceSlug ? <ServiceDetail key={path} slug={serviceSlug}/> : projectSlug ? <ProjectDetail key={path} slug={projectSlug}/> : <Page key={path}/>}</main><Footer/><WhatsAppButton floating/></>
 }
 
 export default function App({ initialPath }) { return <Router initialPath={initialPath}><Site/></Router> }
@@ -59,3 +60,4 @@ import './styles/studio.css'
 import './styles/future.css'
 import './styles/header.css'
 import './styles/backend-ui.css'
+import './styles/whatsapp.css'
