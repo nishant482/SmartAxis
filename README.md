@@ -17,7 +17,7 @@ This workspace already has its database and initial account configured. Change t
 - Overview with project, published-project, inquiry, and unread counts.
 - Add, edit, search, and delete projects.
 - Project title, description, live URL, category, image, display order, published/draft state, and homepage feature flag.
-- Upload JPG, PNG, or WebP files from your device (maximum 5 MB / 40 megapixels). Images are validated, resized, and converted to WebP.
+- Upload JPG, PNG, or WebP files from your device (maximum 4 MB / 40 megapixels). Images are validated, resized, and converted to WebP.
 - Published projects appear on the portfolio and their own detail pages. The homepage shows up to four featured projects, falling back to the first four published projects.
 - Contact submissions are saved in MongoDB and appear in the admin inbox. View contact details, change inquiry status, reply using your mail application, or delete an inquiry. The application does not send email automatically.
 - Eight-hour HTTP-only sessions, sign-out, and password changes. There is no public admin registration.
@@ -28,11 +28,29 @@ The public site uses one persistent header. Route changes replace page content, 
 
 The database name is configured by `MONGODB_DB` (default `smartaxis`). Collections are `admins`, `sessions`, `projects`, and `inquiries`. Existing portfolio examples are not automatically inserted into the database.
 
-Images are stored in `server/uploads`, outside the build output, and served through `/uploads`. MongoDB stores their paths and project metadata. Back up **both MongoDB and this folder**. Hosting requires a persistent writable disk; an ephemeral deployment filesystem will lose uploaded images. Rebuilding `dist` does not remove uploads.
+Local hosting stores images in `server/uploads` and serves them through `/uploads`; back up both MongoDB and this folder. The Vercel entrypoint stores processed images in the MongoDB `projectImages` collection and serves the same URLs, so redeploys do not lose images. Existing local files are not automatically migrated. Uploads are limited to 4 MB to leave room for multipart fields within Vercel's request limit.
 
 Secrets, login details, uploads, and the local package cache are excluded from Git.
 
 ## Production
+
+### Vercel
+
+`vercel.json` builds the Vite frontend, sends `/api/*` and `/uploads/*` to `api/index.mjs`, and sends page URLs to `index.html` so direct visits and refreshes work.
+
+On `https://smart-axis.vercel.app`, the API base is **`https://smart-axis.vercel.app/api`**. The browser deliberately uses relative `/api/...` URLs, keeping login cookies on the current domain and local development working without CORS. Do not put this address in `MONGODB_URI`.
+
+In Vercel **Project > Settings > Environment Variables**, configure these server-only values for Production, then redeploy:
+
+- `MONGODB_URI`: the connection string from your ignored local `.env`.
+- `MONGODB_DB`: `smartaxis`.
+- `PUBLIC_ORIGINS`: `https://smart-axis.vercel.app` (comma-separated exact origins if adding a custom domain).
+- `ADMIN_USERNAME`: `admin`.
+- `ADMIN_PASSWORD_HASH`: the existing hash from `.env`, only needed to bootstrap an account in a new database. Existing database accounts keep their current password.
+
+Keep secrets out of `VITE_` variables and Git. Atlas must allow connections from the deployment. Check `/api/health` for JSON with `database: "connected"`, then open and refresh `/about` and `/admin/projects`. A 503 JSON API response means the function is reachable but database configuration/connectivity still needs attention.
+
+### Persistent Node server
 
 Run `npm run build`, then `npm start` to serve the API and compiled website together on port 4000. For a public deployment configure `HOST`, `PORT`, `PUBLIC_ORIGINS` with the exact HTTPS website origin, and `NODE_ENV=production`. HTTPS is required for the production session cookie. Ensure the server IP can access your Atlas cluster. Keep `NODE_ENV=development` out of `.env` when building, so the React production build is used.
 

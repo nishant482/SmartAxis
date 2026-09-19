@@ -52,8 +52,9 @@ function publicProject(p) {
   return {id:p._id.toString(),title:p.title,description:p.description,category:p.category,link:p.link,image:p.image,featured:p.featured,order:p.order}
 }
 
-export function createApp({getDb, uploadDir, origins, production = false, distDir}) {
+export function createApp({getDb, uploadDir, origins, production = false, distDir, mongoImages = false, trustProxy = false}) {
   const app = express()
+  app.set('trust proxy',trustProxy)
   app.disable('x-powered-by')
   app.use(helmet({contentSecurityPolicy:production ? {directives:{defaultSrc:["'self'"],scriptSrc:["'self'"],styleSrc:["'self'","'unsafe-inline'",'https://fonts.googleapis.com'],fontSrc:["'self'",'https://fonts.gstatic.com'],imgSrc:["'self'",'data:','blob:'],connectSrc:["'self'"],objectSrc:["'none'"],upgradeInsecureRequests:null}} : false, strictTransportSecurity:production ? undefined : false}))
   app.use(express.json({limit:'32kb'}))
@@ -69,7 +70,7 @@ export function createApp({getDb, uploadDir, origins, production = false, distDi
   const cookie = {httpOnly:true,sameSite:'strict',secure:production,path:'/api',maxAge:sessionHours*3600000}
   const loginLimit = rateLimit({windowMs:15*60000,limit:10,skipSuccessfulRequests:true,standardHeaders:'draft-8',legacyHeaders:false,message:{error:'Too many sign-in attempts. Try again in 15 minutes.'}})
   const contactLimit = rateLimit({windowMs:15*60000,limit:10,standardHeaders:'draft-8',legacyHeaders:false,message:{error:'Too many submissions. Please try again later.'}})
-  const upload = multer({storage:multer.memoryStorage(),limits:{fileSize:5*1024*1024,files:1,fields:10,fieldSize:10000,parts:11}}).single('image')
+  const upload = multer({storage:multer.memoryStorage(),limits:{fileSize:4*1024*1024,files:1,fields:10,fieldSize:10000,parts:11}}).single('image')
   async function auth(req,res,next) {
     const token = sessionToken(req)
     if (!token) throw new RequestError('Please sign in.',401)
@@ -86,14 +87,21 @@ export function createApp({getDb, uploadDir, origins, production = false, distDi
       const metadata = await image.metadata()
       if (!['jpeg','png','webp'].includes(metadata.format) || (metadata.pages || 1) > 1) throw new Error('Unsupported image')
       buffer = await image.rotate().resize({width:2400,height:1800,fit:'inside',withoutEnlargement:true}).webp({quality:85}).toBuffer()
-    } catch { throw new RequestError('Upload a valid JPG, PNG, or WebP image under 5 MB (up to 40 megapixels).') }
-    await mkdir(uploadDir,{recursive:true})
+    } catch { throw new RequestError('Upload a valid JPG, PNG, or WebP image under 4 MB (up to 40 megapixels).') }
     const filename = `${randomUUID()}.webp`
-    await writeFile(path.join(uploadDir,filename),buffer,{flag:'wx'})
+    if (mongoImages) {
+      if (buffer.length > 4*1024*1024) throw new RequestError('Choose a smaller image (processed image must be under 4 MB).')
+      const db=await getDb()
+      await db.collection('projectImages').insertOne({_id:filename,data:buffer,createdAt:new Date()})
+    } else {
+      await mkdir(uploadDir,{recursive:true})
+      await writeFile(path.join(uploadDir,filename),buffer,{flag:'wx'})
+    }
     return `/uploads/${filename}`
   }
   async function removeImage(image) {
     if (!/^\/uploads\/[a-f\d-]{36}\.webp$/.test(image || '')) return
+    if (mongoImages) { const db=await getDb(); await db.collection('projectImages').deleteOne({_id:path.basename(image)}); return }
     await unlink(path.join(uploadDir,path.basename(image))).catch(error => { if (error.code !== 'ENOENT') console.warn('An unused project image could not be removed.') })
   }
   app.get('/api/health',async (req,res) => { const db=await getDb(); await db.command({ping:1}); res.json({status:'ok',database:'connected'}) })
@@ -201,11 +209,19 @@ export function createApp({getDb, uploadDir, origins, production = false, distDi
     res.clearCookie('sa_session',{httpOnly:true,sameSite:'strict',secure:production,path:'/api'}).json({ok:true})
   })
   app.use('/api',(req,res)=>res.status(404).json({error:'API endpoint not found.'}))
-  app.use('/uploads',express.static(uploadDir,{dotfiles:'deny',index:false,maxAge:'1d',fallthrough:false,setHeaders:res=>res.set('X-Content-Type-Options','nosniff')}))
+  if (mongoImages) {
+    app.get('/uploads/:filename',async (req,res)=>{
+      if (!/^[a-f\d-]{36}\.webp$/.test(req.params.filename)) throw new RequestError('File not found.',404)
+      const db=await getDb(),file=await db.collection('projectImages').findOne({_id:req.params.filename})
+      if (!file) throw new RequestError('File not found.',404)
+      res.type('webp').set('Cache-Control','public, max-age=86400').send(Buffer.from(file.data.buffer))
+    })
+    app.use('/uploads',(req,res)=>res.status(404).json({error:'File not found.'}))
+  } else app.use('/uploads',express.static(uploadDir,{dotfiles:'deny',index:false,maxAge:'1d',fallthrough:false,setHeaders:res=>res.set('X-Content-Type-Options','nosniff')}))
   if (distDir) { app.use(express.static(distDir)); app.get('/{*path}',(req,res)=>res.sendFile(path.join(distDir,'index.html'))) }
   app.use((error,req,res,next) => {
     if (res.headersSent) return next(error)
-    if (error instanceof multer.MulterError) return res.status(400).json({error:error.code==='LIMIT_FILE_SIZE' ? 'Image must be under 5 MB.' : 'Invalid upload. Choose one image and try again.'})
+    if (error instanceof multer.MulterError) return res.status(400).json({error:error.code==='LIMIT_FILE_SIZE' ? 'Image must be under 4 MB.' : 'Invalid upload. Choose one image and try again.'})
     if (error instanceof RequestError) return res.status(error.status).json({error:error.message})
     if (error.type==='entity.too.large') return res.status(413).json({error:'The submission is too large.'})
     if (error instanceof SyntaxError && 'body' in error) return res.status(400).json({error:'Invalid JSON request.'})

@@ -9,7 +9,7 @@ import path from 'node:path'
 import sharp from 'sharp'
 import { createApp, passwordHash } from '../server/app.mjs'
 
-test('MongoDB-backed admin, projects, local uploads, and contact security', {timeout:120000}, async () => {
+for (const mongoImages of [false,true]) test(`MongoDB-backed admin, projects, ${mongoImages?'database':'local'} uploads, and contact security`, {timeout:120000}, async () => {
   assert.ok(process.env.MONGODB_URI,'Set MONGODB_URI in .env')
   const client=new MongoClient(process.env.MONGODB_URI,{serverSelectionTimeoutMS:10000})
   const dbName=`smartaxis_test_${randomUUID().replaceAll('-','').slice(0,16)}`
@@ -20,7 +20,7 @@ test('MongoDB-backed admin, projects, local uploads, and contact security', {tim
     const db=client.db(dbName),password=`Test-${randomUUID()}`
     await db.collection('admins').insertOne({username:'testadmin',passwordHash:await passwordHash(password)})
     await db.collection('inquiries').createIndex({requestId:1},{unique:true})
-    const app=createApp({getDb:async()=>db,uploadDir,origins:['http://localhost:5173']})
+    const app=createApp({getDb:async()=>db,uploadDir,mongoImages,origins:['http://localhost:5173']})
     server=await new Promise(resolve=>{const instance=app.listen(0,'127.0.0.1',()=>resolve(instance))})
     const base=`http://127.0.0.1:${server.address().port}`
     let cookie=''
@@ -51,7 +51,7 @@ test('MongoDB-backed admin, projects, local uploads, and contact security', {tim
     assert.equal((await request('/api/admin/projects',{method:'POST',body:form(),authenticated:false})).status,401)
     assert.equal((await request('/api/admin/projects',{method:'POST',body:form({link:'javascript:alert(1)'})})).status,400)
     assert.equal((await request('/api/admin/projects',{method:'POST',body:form({},Buffer.from('<svg onload="alert(1)"></svg>'),'image/svg+xml')})).status,400)
-    assert.equal((await readdir(uploadDir)).length,0,'Invalid uploads do not leave files')
+    assert.equal((mongoImages ? await db.collection('projectImages').countDocuments() : (await readdir(uploadDir)).length),0,'Invalid uploads do not leave files')
     const created=await request('/api/admin/projects',{method:'POST',body:form()})
     assert.equal(created.status,201)
     const {id}=await created.json()
@@ -68,7 +68,7 @@ test('MongoDB-backed admin, projects, local uploads, and contact security', {tim
     assert.equal((await (await request('/api/admin/projects?search=Draft')).json()).total,1)
     assert.equal((await request(`/api/admin/projects/${id}`,{method:'PUT',body:form({title:'Updated title'})})).status,200)
     assert.equal((await fetch(base+firstImage)).status,404,'Old image removed after replacement')
-    assert.equal((await readdir(uploadDir)).length,1)
+    assert.equal((mongoImages ? await db.collection('projectImages').countDocuments() : (await readdir(uploadDir)).length),1)
     const inquiry={name:'Integration Test',email:'test@example.invalid',company:'Test',phone:'',services:['Web development'],budget:'Under $5k',details:'Please build an example portfolio for my business.',requestId:randomUUID()}
     assert.equal((await request('/api/contact',{method:'POST',body:{...inquiry,email:'invalid'}})).status,400)
     assert.equal((await request('/api/contact',{method:'POST',body:inquiry})).status,201)
@@ -80,7 +80,7 @@ test('MongoDB-backed admin, projects, local uploads, and contact security', {tim
     assert.equal((await (await request('/api/admin/inquiries?status=read')).json()).total,1)
     assert.equal((await request(`/api/admin/inquiries/${inquiryId}`,{method:'DELETE'})).status,200)
     assert.equal((await request(`/api/admin/projects/${id}`,{method:'DELETE'})).status,200)
-    assert.equal((await readdir(uploadDir)).length,0)
+    assert.equal((mongoImages ? await db.collection('projectImages').countDocuments() : (await readdir(uploadDir)).length),0)
     const changed=await request('/api/admin/password',{method:'POST',body:{currentPassword:password,newPassword:password+'new'}})
     assert.equal(changed.status,200)
     assert.equal((await request('/api/admin/session')).status,401,'Password change revokes old sessions')
