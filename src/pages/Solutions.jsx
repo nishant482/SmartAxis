@@ -1,0 +1,23 @@
+import { useState } from 'react'
+import { PageHero, Eyebrow, Button, CTA } from '../components/UI'
+import Icon from '../components/Icon'
+
+const solutions = [
+  {name:'Startups', number:'01', headline:'Start with a spark.', accent:'Build something that matters.', text:'Move from idea to a focused product without losing the big picture. We help you find your first milestone and build the right foundation.', points:['Product discovery & idea validation','MVP design & development','A technical foundation for growth'], icon:'bolt', word:'zero → one', tags:['MVPs','Product strategy','Rapid prototyping']},
+  {name:'Growing businesses',number:'02',headline:'Your next stage.',accent:'A smarter way to get there.',text:'Make your business easier to find, easier to choose, and easier to run. Connect your digital presence with the systems behind it.',points:['A website that works for your business','Connected CRM & internal tools','Less manual work, more visibility'],icon:'shop',word:'next chapter',tags:['Web platforms','Automation','Integrations']},
+  {name:'Enterprises',number:'03',headline:'Complexity, simplified.',accent:'Progress, connected.',text:'Build clarity into complex systems. We help teams modernize technology and connect workflows with careful architecture and considered delivery.',points:['Modernize legacy applications','Connect teams, tools & information','Scalable, maintainable architecture'],icon:'nodes',word:'all connected',tags:['Custom software','API systems','Modernization']},
+  {name:'E-commerce',number:'04',headline:'From first look.',accent:'To the next loyal customer.',text:'Give customers a reason to explore and every reason to come back. Thoughtful commerce experiences, from storefront to fulfillment.',points:['Distinctive shopping experiences','Secure, streamlined checkout','Integrated inventory & operations'],icon:'shop',word:'browse → buy',tags:['Storefronts','Checkout','Commerce systems']},
+]
+
+export default function Solutions() {
+  const [selected, setSelected] = useState(0)
+  const solution = solutions[selected]
+  function handleKeys(event) {
+    if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return
+    event.preventDefault()
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? 3 : (selected + (event.key === 'ArrowRight' ? 1 : 3)) % 4
+    setSelected(next)
+    document.getElementById(`solution-tab-${next}`).focus()
+  }
+  return <><PageHero number="02" eyebrow="YOUR BUSINESS. YOUR WAY FORWARD." title="Different challenges." accent="One forward direction." description="You don’t need another one-size-fits-all solution. You need the right thinking, the right technology, and a partner who gets your business."/><section className="container section section-no-top"><div className="solution-tabs" role="tablist" aria-label="Business types">{solutions.map((s,i)=><button key={s.name} role="tab" id={`solution-tab-${i}`} aria-selected={selected===i} aria-controls="solution-panel" tabIndex={selected===i?0:-1} onKeyDown={handleKeys} onClick={()=>setSelected(i)}><span>{s.number}</span>{s.name}<Icon name="diagonal" size={18}/></button>)}</div><div className="solution-detail" id="solution-panel" role="tabpanel" aria-labelledby={`solution-tab-${selected}`}><div className="solution-copy"><Eyebrow>BUILT FOR {solution.name.toUpperCase()}</Eyebrow><h2>{solution.headline}<br/><span className="text-muted">{solution.accent}</span></h2><p>{solution.text}</p><ul>{solution.points.map(p=><li key={p}><Icon name="check" size={18}/>{p}</li>)}</ul><Button>Find your way forward</Button></div><div className="solution-art"><span className="solution-art-label">POSSIBILITY / {solution.number}</span><div className="solution-orbits"><i/><i/><i/><Icon name={solution.icon} size={63}/></div><h3>{solution.word}</h3><div className="solution-tags">{solution.tags.map(t=><span key={t}>{t}</span>)}</div></div></div></section><section className="container solution-principles section"><Eyebrow>WHATEVER YOUR NEXT CHAPTER</Eyebrow><h2>One team.<br/><span className="text-muted">In your corner.</span></h2><div className="three-columns">{[['A business-first perspective','We start with the outcome you need, then work back to the technology that gets you there.'],['A connected approach','Strategy, design, and engineering work together from day one. Less friction. Better decisions.'],['A long-term mindset','We build things you can grow, maintain, and make your own. Your future matters as much as your launch.']].map(([t,p])=><article key={t}><Icon name="diagonal"/><h3>{t}</h3><p>{p}</p></article>)}</div></section><CTA/></>
+}

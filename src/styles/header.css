@@ -1,0 +1,55 @@
+/* A single, contained navigation surface with explicit active states. */
+.site-header.header-shell{height:100px;padding:16px 32px;background:linear-gradient(#080a10f5,#080a10d9);border:0;backdrop-filter:blur(16px)}
+.header-shell .navigation{width:min(1280px,100%);height:68px;display:grid;grid-template-columns:1fr auto 1fr;gap:26px;padding:10px 12px 10px 20px;border:1px solid #839bca29;border-radius:17px;background:linear-gradient(115deg,#161e2cde,#101621ed 55%,#151e2de3);box-shadow:inset 0 1px 0 #ffffff04,0 10px 32px #0002}
+.header-shell .brand{justify-self:start;font-size:22px;letter-spacing:-.85px;gap:10px;white-space:nowrap;color:#edf2ff}
+.header-shell .brand>svg{width:34px;height:34px;padding:3px;color:#a9c0ff}
+.header-shell .brand-period{font-size:8px;color:#7b90b6;margin-left:3px}
+.header-shell .nav-links{position:static;display:flex;align-items:center;gap:3px;font-size:12px;color:#9eacc4;padding:3px;background:#070d1759;border:1px solid #ffffff05;border-radius:11px}
+.header-shell .nav-links a{display:flex;align-items:center;justify-content:center;padding:11px 14px;min-height:40px;line-height:1.4;border:1px solid transparent;border-radius:8px;font-weight:500;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.header-shell .nav-links a:hover{color:#e8f0ff;background:#8caef110}
+.header-shell .nav-links a[aria-current=page]{color:#e6efff;background:linear-gradient(135deg,#304970,#253955);border-color:#6a8fc545;box-shadow:0 2px 7px #0002,inset 0 1px 0 #b8d1ff0d}
+.header-shell .nav-links a[aria-current=page]:after{display:none}
+.header-shell .nav-links .mobile-contact{display:none}
+.header-shell .header-contact{justify-self:end;display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:44px;padding:6px 7px 6px 17px;background:#b0c7ff;color:#132340;border:1px solid #c7d7ff;border-radius:10px;font-size:12px;font-weight:600;line-height:1.4;white-space:nowrap;box-shadow:inset 0 1px 0 #e6eeff66}
+.header-shell .header-contact:hover{background:#ccdcff;transform:translateY(-1px)}
+.header-shell .header-contact[aria-current=page]{outline:2px solid #7d9fe6;outline-offset:3px}
+.header-shell .contact-arrow{display:grid;place-items:center;width:30px;height:30px;background:#e5edffb8;border-radius:7px;transition:transform .2s}
+.header-shell .header-contact:hover .contact-arrow{transform:translate(1px,-1px)}
+.header-shell .contact-label-mobile,.header-shell .menu-toggle{display:none}
+@media(min-width:1001px) and (max-width:1180px){.header-shell .navigation{gap:17px;padding-left:14px}.header-shell .brand{font-size:20px;gap:7px}.header-shell .nav-links a{padding-inline:10px;font-size:11px}.header-shell .header-contact{font-size:11px;gap:12px;padding-left:13px}}
+@media(max-width:1000px){
+  .site-header.header-shell{height:88px;padding:12px 24px}
+  .header-shell .navigation{height:64px;display:flex;gap:14px;padding:9px 10px 9px 15px;border-radius:14px}
+  .header-shell .brand{margin-right:auto}
+  .header-shell .nav-links{display:none}
+  .header-shell .header-contact{margin-left:0;min-height:42px;padding:5px 6px 5px 14px;font-size:11px;gap:13px}
+  .header-shell .menu-toggle{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;width:44px;height:44px;flex-shrink:0;border-radius:9px;border:1px solid #7898c443;background:#18263c;color:#c4d9ff;font-size:21px}
+  .header-shell .menu-toggle>span{background:#cadbfa;width:17px;height:1px}
+  .header-shell.header-menu-open{background:#0a111e}
+  .header-shell .nav-links.is-open{position:fixed;display:flex;top:88px;left:24px;right:24px;height:calc(100dvh - 104px);flex-direction:column;align-items:stretch;justify-content:flex-start;gap:9px;padding:20px;background:linear-gradient(145deg,#142137,#0d1727);border:1px solid #7898c436;border-radius:15px;overflow-y:auto;overscroll-behavior:contain;box-shadow:0 18px 40px #0008}
+  .header-shell .nav-links.is-open a{justify-content:space-between;min-height:60px;font-size:21px;font-weight:500;padding:16px 18px;border:1px solid #6c8fbe1c;border-radius:10px;background:#91b1e804;color:#a6bbdb;line-height:1.3}
+  .header-shell .nav-links.is-open a:hover{background:#243955;color:#eff5ff}
+  .header-shell .nav-links.is-open a[aria-current=page]{background:linear-gradient(115deg,#334f7a,#213553);color:#edf4ff;border-color:#7c9fd851}
+  .header-shell .nav-links.is-open a[aria-current=page]:after{display:block;content:'↗';position:static;width:auto;height:auto;border:0;background:none;box-shadow:none;font-size:20px;color:#bbd1ff;transform:none}
+  .header-shell .nav-links.is-open .mobile-contact{display:flex;background:#a9c5ff;color:#122748;margin-top:8px;font-size:17px;border-color:#c4d7ff}
+}
+@media(max-width:720px){
+  .site-header.header-shell{height:80px;padding:10px 14px}
+  .header-shell .navigation{height:60px;padding:7px 8px 7px 11px;border-radius:13px;gap:9px}
+  .header-shell .brand{font-size:20px;gap:6px;letter-spacing:-.75px}
+  .header-shell .brand>svg{width:29px;height:29px;padding:2px}
+  .header-shell .brand-period{font-size:7px;margin-left:2px}
+  .header-shell .contact-label-desktop{display:none}.header-shell .contact-label-mobile{display:inline}
+  .header-shell .header-contact{min-height:42px;gap:9px;padding:5px 6px 5px 12px;font-size:10px;border-radius:8px}
+  .header-shell .contact-arrow{width:25px;height:28px;border-radius:5px}.header-shell .contact-arrow svg{width:14px;height:14px}
+  .header-shell .menu-toggle{width:42px;height:42px;border-radius:8px}
+  .header-shell .nav-links.is-open{top:80px;left:14px;right:14px;height:calc(100dvh - 94px);padding:16px;gap:8px;border-radius:13px}
+  .header-shell .nav-links.is-open a{min-height:56px;padding:15px 16px;font-size:20px}
+}
+@media(max-width:380px){
+  .site-header.header-shell{padding-inline:10px}
+  .header-shell .navigation{gap:6px;padding-left:8px;padding-right:7px}
+  .header-shell .brand{font-size:18px;gap:4px;letter-spacing:-.8px}.header-shell .brand>svg{width:25px;height:27px}
+  .header-shell .header-contact{padding-inline:10px;gap:0;font-size:10px;min-height:42px}.header-shell .contact-arrow{display:none}
+  .header-shell .nav-links.is-open{left:10px;right:10px}
+}
