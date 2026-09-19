@@ -1,8 +1,8 @@
 import { createApp } from '../server/app.mjs'
 import { getDb } from '../server/database.mjs'
+import { allowedOrigins } from '../server/origins.mjs'
 
-const origins = (process.env.PUBLIC_ORIGINS || 'https://smart-axis.vercel.app')
-  .split(',').map(value => value.trim()).filter(Boolean)
+const origins = allowedOrigins()
 
 // Same-origin API keeps admin cookies on the website's domain.
 export default createApp({getDb, origins, production:true, mongoImages:true, trustProxy:1})
