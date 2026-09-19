@@ -3,6 +3,7 @@ import { Router } from './lib/router'
 import { lazy, Suspense } from 'react'
 import { useRouter } from './lib/RouterContext'
 import { updateMetadata } from './lib/seo'
+import { initializeAnalytics } from './lib/analytics'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
@@ -45,6 +46,7 @@ function Site() {
 
   useEffect(() => {
     updateMetadata(path)
+    initializeAnalytics(path)
     if (!initial.current) main.current?.focus({ preventScroll: true })
     initial.current = false
   }, [path, title, serviceSlug, projectSlug, isAdmin])

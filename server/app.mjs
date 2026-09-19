@@ -56,7 +56,7 @@ export function createApp({getDb, uploadDir, origins, production = false, distDi
   const app = express()
   app.set('trust proxy',trustProxy)
   app.disable('x-powered-by')
-  app.use(helmet({contentSecurityPolicy:production ? {directives:{defaultSrc:["'self'"],scriptSrc:["'self'"],styleSrc:["'self'","'unsafe-inline'",'https://fonts.googleapis.com'],fontSrc:["'self'",'https://fonts.gstatic.com'],imgSrc:["'self'",'data:','blob:'],connectSrc:["'self'"],objectSrc:["'none'"],upgradeInsecureRequests:null}} : false, strictTransportSecurity:production ? undefined : false}))
+  app.use(helmet({contentSecurityPolicy:production ? {directives:{defaultSrc:["'self'"],scriptSrc:["'self'",'https://www.googletagmanager.com'],styleSrc:["'self'","'unsafe-inline'",'https://fonts.googleapis.com'],fontSrc:["'self'",'https://fonts.gstatic.com'],imgSrc:["'self'",'data:','blob:'],connectSrc:["'self'",'https://*.google-analytics.com','https://*.analytics.google.com','https://www.googletagmanager.com'],objectSrc:["'none'"],upgradeInsecureRequests:null}} : false, strictTransportSecurity:production ? undefined : false}))
   app.use(express.json({limit:'32kb'}))
   app.use('/api', (req,res,next) => {
     req.body ??= {}
