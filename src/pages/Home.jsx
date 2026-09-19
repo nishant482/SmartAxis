@@ -14,7 +14,7 @@ export default function Home() {
       <div className="container future-hero-layout">
         <div className="future-hero-copy"><div className="hero-badge"><span/> YOUR NEXT BIG THING STARTS HERE <Icon name="diagonal" size={13}/></div>
           <h1>Beyond ordinary.<br/><span>Built for</span><br/><span className="hero-gradient">what’s next.</span></h1>
-          <p>Ambitious ideas deserve extraordinary execution.<br className="desktop-break"/> We design and build digital experiences that move you forward.</p>
+          <p>Websites, mobile apps and custom software for businesses in India.<br className="desktop-break"/> From UI/UX design to launch, we turn your idea into a product people can use.</p>
           <div className="future-actions"><Button>Let’s build your next</Button><a href="#selected-work" className="hero-work-link"><span><Icon name="arrow" size={17}/></span>Explore the work</a></div>
           <div className="hero-mini-proof"><span className="mini-axis">✳</span><p>Design-led. Engineering-driven.<br/><strong>One team. Every possibility.</strong></p></div>
         </div>

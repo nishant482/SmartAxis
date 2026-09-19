@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { RouterContext, useRouter } from './RouterContext'
 
-export function Router({ children }) {
-  const [path, setPath] = useState(window.location.pathname.replace(/\/$/, '') || '/')
+export function Router({ children, initialPath }) {
+  const [path, setPath] = useState(initialPath || (typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') || '/' : '/'))
 
   useEffect(() => {
     const onPop = () => setPath(window.location.pathname.replace(/\/$/, '') || '/')

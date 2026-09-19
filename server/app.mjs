@@ -105,6 +105,11 @@ export function createApp({getDb, uploadDir, origins, production = false, distDi
     await unlink(path.join(uploadDir,path.basename(image))).catch(error => { if (error.code !== 'ENOENT') console.warn('An unused project image could not be removed.') })
   }
   app.get('/api/health',async (req,res) => { const db=await getDb(); await db.command({ping:1}); res.json({status:'ok',database:'connected'}) })
+  app.get('/sitemap-projects.xml',async (req,res)=>{
+    const db=await getDb()
+    const projects=await db.collection('projects').find({published:true},{projection:{_id:1}}).sort({_id:1}).limit(45000).toArray()
+    res.type('application/xml').set('Cache-Control','public, max-age=300').send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${projects.map(project=>`<url><loc>https://smart-axis.vercel.app/portfolio/${project._id.toString()}</loc></url>`).join('')}</urlset>`)
+  })
   app.get('/api/projects',async (req,res) => {
     const db=await getDb()
     const projects=await db.collection('projects').find({published:true}).sort({order:1,createdAt:-1}).toArray()
@@ -218,7 +223,13 @@ export function createApp({getDb, uploadDir, origins, production = false, distDi
     })
     app.use('/uploads',(req,res)=>res.status(404).json({error:'File not found.'}))
   } else app.use('/uploads',express.static(uploadDir,{dotfiles:'deny',index:false,maxAge:'1d',fallthrough:false,setHeaders:res=>res.set('X-Content-Type-Options','nosniff')}))
-  if (distDir) { app.use(express.static(distDir)); app.get('/{*path}',(req,res)=>res.sendFile(path.join(distDir,'index.html'))) }
+  if (distDir) {
+    app.use('/admin',(req,res,next)=>{res.set('X-Robots-Tag','noindex, nofollow');next()})
+    app.get('/services',(req,res)=>res.sendFile(path.join(distDir,'services.html')))
+    app.use(express.static(distDir,{extensions:['html']}))
+    app.get(['/admin','/admin/{*path}','/portfolio/:id'],(req,res)=>res.sendFile(path.join(distDir,'shell.html')))
+    app.get('/{*path}',(req,res)=>res.status(404).sendFile(path.join(distDir,'404.html')))
+  }
   app.use((error,req,res,next) => {
     if (res.headersSent) return next(error)
     if (error instanceof multer.MulterError) return res.status(400).json({error:error.code==='LIMIT_FILE_SIZE' ? 'Image must be under 4 MB.' : 'Invalid upload. Choose one image and try again.'})

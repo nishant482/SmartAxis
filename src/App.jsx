@@ -2,6 +2,7 @@
 import { Router } from './lib/router'
 import { lazy, Suspense } from 'react'
 import { useRouter } from './lib/RouterContext'
+import { updateMetadata } from './lib/seo'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -42,7 +43,7 @@ function Site() {
   const projectSlug = path.startsWith('/portfolio/') ? path.slice(11) : null
 
   useEffect(() => {
-    document.title = `${isAdmin ? 'Admin' : serviceSlug || projectSlug ? (serviceSlug || projectSlug).replaceAll('-', ' ') : title} | SmartAxis`
+    updateMetadata(path)
     if (!initial.current) main.current?.focus({ preventScroll: true })
     initial.current = false
   }, [path, title, serviceSlug, projectSlug, isAdmin])
@@ -51,7 +52,7 @@ function Site() {
   return <><a href="#main" className="skip-link">Skip to content</a><Header/><main ref={main} id="main" tabIndex={-1}>{serviceSlug ? <ServiceDetail key={path} slug={serviceSlug}/> : projectSlug ? <ProjectDetail key={path} slug={projectSlug}/> : <Page key={path}/>}</main><Footer/></>
 }
 
-export default function App() { return <Router><Site/></Router> }
+export default function App({ initialPath }) { return <Router initialPath={initialPath}><Site/></Router> }
 
 import './styles/light.css'
 import './styles/studio.css'

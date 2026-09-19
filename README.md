@@ -56,7 +56,15 @@ Run `npm run build`, then `npm start` to serve the API and compiled website toge
 
 `npm run dev:client` and `npm run dev:server` can also start the two development processes separately. Restart the API after changing `.env`. `npm run preview` is a frontend preview only; the API must also be running.
 
-## Verification
+## Search visibility
+
+SEO targets businesses in India without inventing a local office or address. `npm run build` generates readable HTML for 18 public pages, unique titles/descriptions, canonical links, social previews and Organization/WebSite/Service structured data. The client hydrates this HTML and updates metadata during navigation. Dynamic project pages load their content and metadata from the API.
+
+`/robots.txt` advertises `/sitemap.xml`. That sitemap index references static public pages and `/sitemap-projects.xml`, which lists currently published projects and refreshes within five minutes. Admin routes send `X-Robots-Tag: noindex, nofollow`; unknown static routes return the custom 404 page.
+
+To request indexing, verify the URL-prefix property `https://smart-axis.vercel.app/` in Google Search Console and submit `sitemap.xml`. If using HTML-tag verification, add Google's exact verification meta tag to `index.html` and redeploy. Use URL Inspection to request indexing of the homepage and important services. Search indexing and rankings are controlled by Google, not guaranteed by these changes. Update the canonical origin, sitemap URLs and structured data if moving to a custom domain.
+
+## Verification commands
 
 - `npm run build` and `npm run lint`.
 - `npm run test:backend`: creates a uniquely named temporary MongoDB database; verifies authentication, protected endpoints, validation, local image lifecycle, draft visibility, inquiry idempotency, statuses, password changes, and sign-out. Removes only its temporary database and upload folder afterward.

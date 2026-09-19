@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 .vercel
+.prerender
 .npm-cache
 dist
 dist-ssr
