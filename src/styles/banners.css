@@ -1,22 +1,22 @@
 /* Shared low-height, text-led banners across public routes. */
-.light-site .page-banner{--banner-surface:#edf2ff;--banner-ink:#476cb2;position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;width:100%;max-width:none;min-height:190px;margin:0 0 34px;padding:29px max(48px,calc((100% - 1200px)/2));border:0;border-radius:0;box-shadow:none;background:linear-gradient(105deg,#fff7,var(--banner-surface)),var(--banner-surface)}
+.light-site .page-banner{--banner-surface:#edf2ff;--banner-ink:#476cb2;position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;width:100%;max-width:none;min-height:300px;margin:0 0 34px;padding:43px max(48px,calc((100% - 1200px)/2));border:0;border-radius:0;box-shadow:none;background:linear-gradient(105deg,#fff7,var(--banner-surface)),var(--banner-surface)}
 .light-site .banner-mint{--banner-surface:#edf3e7;--banner-ink:#70935c;border-color:#dce5d4}
 .light-site .banner-lavender{--banner-surface:#f0edfa;--banner-ink:#8970b8;border-color:#e4ddf1}
 .light-site .banner-peach{--banner-surface:#fbf0e7;--banner-ink:#b18c69;border-color:#efe0d4}
 .light-site .banner-saffron{--banner-surface:#fff3df;--banner-ink:#bd9144;border-color:#efe2ca}
-.light-site .banner-copy{position:relative;z-index:1;width:calc(100% - 220px);min-width:0}
-.light-site .banner-eyebrow{display:flex;align-items:center;gap:9px;font-size:9px;line-height:1.5;font-weight:600;letter-spacing:1.5px;color:#697a71;margin-bottom:12px}
+.light-site .banner-copy{position:relative;z-index:1;width:calc(100% - 270px);min-width:0}
+.light-site .banner-eyebrow{display:flex;align-items:center;gap:9px;font-size:11px;line-height:1.5;font-weight:600;letter-spacing:1.5px;color:#697a71;margin-bottom:12px}
 .light-site .banner-eyebrow>span{width:5px;height:5px;border-radius:50%;background:var(--banner-ink);flex-shrink:0}
-.light-site .page-banner h1{color:#293c34;font-size:clamp(29px,3.1vw,42px);letter-spacing:-1.4px;line-height:1.2;margin:0;font-weight:600;overflow-wrap:anywhere}
+.light-site .page-banner h1{color:#293c34;font-size:clamp(40px,4.1vw,58px);letter-spacing:-1.4px;line-height:1.2;margin:0;font-weight:600;overflow-wrap:anywhere}
 .light-site .page-banner h1 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;color:#466aab;letter-spacing:-1px}
 .light-site .banner-mint h1 em{color:#6f8759}
 .light-site .banner-peach h1 em{color:#9d785b}
 .light-site .banner-lavender h1 em{color:#826aab}
-.light-site .page-banner p{font-size:13px;line-height:1.75;color:#68766f;max-width:700px;margin-top:12px}
+.light-site .page-banner p{font-size:16px;line-height:1.75;color:#68766f;max-width:700px;margin-top:16px}
 .light-site .banner-actions{display:flex;align-items:center;flex-wrap:wrap;gap:22px;margin-top:19px}
-.light-site .banner-actions .button{min-height:44px;padding:12px 18px;font-size:12px;border-radius:7px}
-.light-site .banner-actions .text-link{min-height:44px;display:inline-flex;align-items:center;font-size:12px}
-.light-site .banner-art{position:absolute;z-index:0;right:max(10px,calc((100% - 1200px)/2));top:50%;transform:translateY(-50%);width:265px;height:190px;color:var(--banner-ink);pointer-events:none}
+.light-site .banner-actions .button{min-height:48px;padding:14px 21px;font-size:14px;border-radius:7px}
+.light-site .banner-actions .text-link{min-height:44px;display:inline-flex;align-items:center;font-size:14px}
+.light-site .banner-art{position:absolute;z-index:0;right:max(10px,calc((100% - 1200px)/2));top:50%;transform:translateY(-50%);width:340px;height:250px;color:var(--banner-ink);pointer-events:none}
 .light-site .home-clean>.page-banner{margin-bottom:0}
 .light-site .home-clean>.page-banner+.home-apps{border-top:0;padding-top:44px}
 .light-site .page-banner+.section{padding-top:15px}
@@ -27,21 +27,21 @@
 .light-site .page-banner+.blog-detail{padding-top:0}
 .light-site .blog-detail .article-header{padding:20px 0}
 .light-site .breadcrumb{padding-block:14px;margin-bottom:0;font-size:11px}
-@media(max-width:1000px){.light-site .page-banner{min-height:175px;padding:26px 28px}.light-site .banner-copy{width:calc(100% - 150px)}.light-site .banner-art{width:205px;right:-12px}.light-site .page-banner h1{font-size:33px}}
+@media(max-width:1000px){.light-site .page-banner{min-height:270px;padding:36px 28px}.light-site .banner-copy{width:calc(100% - 150px)}.light-site .banner-art{width:240px;right:-12px}.light-site .page-banner h1{font-size:43px}}
 @media(max-width:720px){
- .light-site .page-banner{min-height:155px;padding:23px 20px;margin-top:0;margin-bottom:27px;border-radius:0}
+ .light-site .page-banner{min-height:260px;padding:32px 20px;margin-top:0;margin-bottom:27px;border-radius:0}
  .light-site .banner-copy{width:100%}
- .light-site .banner-art{width:170px;height:150px;right:-65px;top:0;transform:none;opacity:.35;z-index:-1}
- .light-site .banner-eyebrow{font-size:8px;letter-spacing:1.2px;margin-bottom:11px;padding-right:16px}
- .light-site .page-banner h1{font-size:29px;line-height:1.22;letter-spacing:-.9px;max-width:100%}
+ .light-site .banner-art{width:210px;height:190px;right:-65px;top:0;transform:none;opacity:.35;z-index:-1}
+ .light-site .banner-eyebrow{font-size:10px;letter-spacing:1.2px;margin-bottom:11px;padding-right:16px}
+ .light-site .page-banner h1{font-size:36px;line-height:1.18;letter-spacing:-.9px;max-width:100%}
  .light-site .page-banner h1 em{letter-spacing:-.7px}
- .light-site .page-banner p{font-size:12px;line-height:1.7;margin-top:10px}
+ .light-site .page-banner p{font-size:15px;line-height:1.7;margin-top:14px}
  .light-site .banner-actions{gap:18px;margin-top:16px}
- .light-site .banner-actions .button{min-height:44px;padding:12px 15px;font-size:11px}
- .light-site .banner-actions .text-link{font-size:11px}
+ .light-site .banner-actions .button{min-height:48px;padding:14px 18px;font-size:13px}
+ .light-site .banner-actions .text-link{font-size:13px}
  .light-site .home-clean>.page-banner+.home-apps{padding-top:32px}
  .light-site .contact-intro h2{font-size:25px}
  .light-site .breadcrumb{padding-block:12px;margin-bottom:0}
  .light-site .page-banner+.section{padding-top:5px}
 }
-@media(max-width:360px){.light-site .page-banner{padding:21px 20px}.light-site .page-banner h1{font-size:27px}.light-site .banner-actions{gap:13px}}
+@media(max-width:360px){.light-site .page-banner{padding:30px 20px}.light-site .page-banner h1{font-size:34px}.light-site .banner-actions{gap:13px}}
