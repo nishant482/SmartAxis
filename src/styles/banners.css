@@ -18,7 +18,7 @@
 .light-site .banner-actions .text-link{min-height:44px;display:inline-flex;align-items:center;font-size:12px}
 .light-site .banner-art{position:absolute;z-index:0;right:max(10px,calc((100% - 1200px)/2));top:50%;transform:translateY(-50%);width:265px;height:190px;color:var(--banner-ink);pointer-events:none}
 .light-site .home-clean>.page-banner{margin-bottom:0}
-.light-site .home-clean>.home-apps{border-top:0;padding-top:44px}
+.light-site .home-clean>.page-banner+.home-apps{border-top:0;padding-top:44px}
 .light-site .page-banner+.section{padding-top:15px}
 .light-site .page-banner+.product-detail-stage{margin-top:0}
 .light-site .page-banner+.contact-page{padding-top:10px}
@@ -39,7 +39,7 @@
  .light-site .banner-actions{gap:18px;margin-top:16px}
  .light-site .banner-actions .button{min-height:44px;padding:12px 15px;font-size:11px}
  .light-site .banner-actions .text-link{font-size:11px}
- .light-site .home-clean>.home-apps{padding-top:32px}
+ .light-site .home-clean>.page-banner+.home-apps{padding-top:32px}
  .light-site .contact-intro h2{font-size:25px}
  .light-site .breadcrumb{padding-block:12px;margin-bottom:0}
  .light-site .page-banner+.section{padding-top:5px}
