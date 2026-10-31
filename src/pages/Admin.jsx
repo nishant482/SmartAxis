@@ -3,6 +3,7 @@ import { Link } from '../lib/router'
 import { useRouter } from '../lib/RouterContext'
 import { api, useResource } from '../lib/api'
 import Brand from '../components/Brand'
+import AdminBlogs from '../components/AdminBlogs'
 import ResourceState from '../components/ResourceState'
 import Icon from '../components/Icon'
 import '../styles/admin.css'
@@ -64,11 +65,11 @@ function Account({onChanged}) {
 export default function Admin() {
   const {path,navigate}=useRouter()
   const [session,setSession]=useState(null),[checking,setChecking]=useState(true),[notice,setNotice]=useState('')
-  const section=path==='/admin/projects'?'projects':path==='/admin/inquiries'?'inquiries':path==='/admin/account'?'account':'overview'
+  const section=path==='/admin/blogs'?'blogs':path==='/admin/projects'?'projects':path==='/admin/inquiries'?'inquiries':path==='/admin/account'?'account':'overview'
   useEffect(()=>{const controller=new AbortController();api('/api/admin/session',{signal:controller.signal}).then(setSession).catch(error=>{if(error.name!=='AbortError'&&error.status!==401)setNotice(error.message)}).finally(()=>{if(!controller.signal.aborted)setChecking(false)});return()=>controller.abort()},[])
   useEffect(()=>{const expired=()=>{setSession(null);setNotice('Your session has expired. Please sign in again.')};window.addEventListener('admin-session-expired',expired);return()=>window.removeEventListener('admin-session-expired',expired)},[])
   async function logout(){try{await api('/api/admin/logout',{method:'POST'});setSession(null);setNotice('');navigate('/admin')}catch(error){setNotice(error.message)}}
   if(checking)return <div className="admin-login"><p role="status">Opening your workspace…</p></div>
   if(!session)return <Login notice={notice} onLogin={user=>{setSession(user);setNotice('')}}/>
-  return <div className="admin-app"><aside className="admin-sidebar"><Brand/><span className="admin-workspace-label">CONTENT STUDIO</span><nav aria-label="Admin navigation">{[['overview','Overview','/admin','nodes'],['projects','Projects','/admin/projects','design'],['inquiries','Inquiries','/admin/inquiries','globe'],['account','Account','/admin/account','shield']].map(([key,label,url,icon])=><Link key={key} to={url} aria-current={section===key?'page':undefined}><Icon name={icon} size={19}/>{label}</Link>)}</nav><div className="admin-sidebar-bottom"><Link to="/" target="_blank" rel="noopener noreferrer">View website </Link><span>Signed in as <strong>{session.username}</strong></span><button onClick={logout}>Sign out</button></div></aside><main className="admin-main"><Alert>{notice}</Alert>{section==='projects'?<Projects/>:section==='inquiries'?<Inquiries/>:section==='account'?<Account onChanged={()=>{setSession(null);setNotice('Password updated. Sign in with your new password.')}}/>:<Overview/>}</main></div>
+  return <div className="admin-app"><aside className="admin-sidebar"><Brand/><span className="admin-workspace-label">CONTENT STUDIO</span><nav aria-label="Admin navigation">{[['overview','Overview','/admin','nodes'],['projects','Projects','/admin/projects','design'],['blogs','Blogs','/admin/blogs','code'],['inquiries','Inquiries','/admin/inquiries','globe'],['account','Account','/admin/account','shield']].map(([key,label,url,icon])=><Link key={key} to={url} aria-current={section===key?'page':undefined}><Icon name={icon} size={19}/>{label}</Link>)}</nav><div className="admin-sidebar-bottom"><Link to="/" target="_blank" rel="noopener noreferrer">View website </Link><span>Signed in as <strong>{session.username}</strong></span><button onClick={logout}>Sign out</button></div></aside><main className="admin-main"><Alert>{notice}</Alert>{section==='blogs'?<AdminBlogs/>:section==='projects'?<Projects/>:section==='inquiries'?<Inquiries/>:section==='account'?<Account onChanged={()=>{setSession(null);setNotice('Password updated. Sign in with your new password.')}}/>:<Overview/>}</main></div>
 }

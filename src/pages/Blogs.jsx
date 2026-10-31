@@ -1,0 +1,12 @@
+import { useState } from 'react'
+import { PageHero } from '../components/UI'
+import { useResource } from '../lib/api'
+import ResourceState from '../components/ResourceState'
+import { blogCategoryDefaults } from '../data/content-categories'
+import { BlogCard } from '../components/Blogs'
+export default function Blogs(){
+  const [category,setCategory]=useState(''),[page,setPage]=useState(1),[search,setSearch]=useState(''),[query,setQuery]=useState('')
+  const resource=useResource(`/api/blogs?page=${page}&category=${encodeURIComponent(category)}&search=${encodeURIComponent(query)}`)
+  const data=resource.data,categories=data?.categories||blogCategoryDefaults
+  return <><PageHero number="JOURNAL" eyebrow="THE STUDIO BLOG" title="A little more to explore." accent="Stories for your interests." description="Guides, ideas and updates across Sanatan bhakti and devotional content, games and study material."/><section className="container section section-no-top blog-index"><div className="category-controls"><div className="category-tabs" aria-label="Filter blog categories">{['',...categories].map(value=><button key={value} aria-pressed={category===value} onClick={()=>{setCategory(value);setPage(1)}}>{value||'All articles'}</button>)}</div><form className="blog-search" onSubmit={event=>{event.preventDefault();setQuery(search);setPage(1)}}><label><span className="sr-only">Search articles</span><input type="search" value={search} onChange={event=>setSearch(event.target.value)} placeholder="Search articles…"/></label><button>Search</button></form></div><ResourceState {...resource}>{data&&(data.posts.length?<><p className="blog-results" role="status">{data.total} {data.total===1?'article':'articles'}</p><div className="blog-grid">{data.posts.map(post=><BlogCard key={post.id} post={post}/>)}</div></>:<div className="blog-empty"><h2>{category?`No articles in ${category} yet.`:'Fresh stories are on their way.'}</h2><p>{query?'Try another search term.':'New articles will appear here as they are published.'}</p>{query&&<button className="button button-outline" onClick={()=>{setSearch('');setQuery('');setPage(1)}}>Clear search</button>}</div>)}</ResourceState>{data&&data.pages>1&&<div className="blog-pagination"><button disabled={page<=1} onClick={()=>setPage(value=>value-1)}>Previous</button><span>Page {page} of {data.pages}</span><button disabled={page>=data.pages} onClick={()=>setPage(value=>value+1)}>Next</button></div>}</section></>
+}

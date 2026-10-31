@@ -19,6 +19,8 @@ export async function getDb() {
       db.collection('inquiries').createIndex({requestId:1},{unique:true,sparse:true}),
       db.collection('inquiries').createIndex({status:1,createdAt:-1}),
       db.collection('projects').createIndex({published:1,order:1,createdAt:-1}),
+      db.collection('blogPosts').createIndex({slug:1},{unique:true}),
+      db.collection('blogPosts').createIndex({published:1,category:1,publishedAt:-1}),
     ])
     if (process.env.ADMIN_PASSWORD_HASH) await db.collection('admins').updateOne({username:process.env.ADMIN_USERNAME||'admin'},{$setOnInsert:{passwordHash:process.env.ADMIN_PASSWORD_HASH,createdAt:new Date()}},{upsert:true})
     console.log('MongoDB connected; admin and indexes are ready.')

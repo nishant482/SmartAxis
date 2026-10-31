@@ -8,6 +8,9 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
 import Home from './pages/Home'
+import Apps from './pages/Apps'
+import Blogs from './pages/Blogs'
+import BlogDetail from './pages/BlogDetail'
 import Services from './pages/Services'
 import ServiceDetail from './pages/ServiceDetail'
 import Solutions from './pages/Solutions'
@@ -24,6 +27,8 @@ const Admin = lazy(() => import('./pages/Admin'))
 
 const pages = {
   '/': [Home, 'Digital experiences. Real impact.'],
+  '/apps': [Apps, 'Our apps'],
+  '/blogs': [Blogs, 'Studio blog'],
   '/services': [Services, 'Our expertise'],
   '/solutions': [Solutions, 'Solutions for your business'],
   '/portfolio': [Portfolio, 'Successful Delivered Products'],
@@ -40,6 +45,7 @@ function Site() {
   const main = useRef(null)
   const [Page, title] = pages[path] || [NotFound, 'Page not found']
   const serviceSlug = path.startsWith('/services/') ? path.slice(10) : null
+  const blogSlug = path.startsWith('/blogs/') ? path.slice(7) : null
   const projectSlug = path.startsWith('/portfolio/') ? path.slice(11) : null
 
   useEffect(() => {
@@ -50,7 +56,7 @@ function Site() {
   }, [path, title, serviceSlug, projectSlug, isAdmin])
 
   if (isAdmin) return <Suspense fallback={<div className="resource-state">Loading admin…</div>}><Admin/></Suspense>
-  return <><a href="#main" className="skip-link">Skip to content</a><Header/><main ref={main} id="main" tabIndex={-1}>{serviceSlug ? <ServiceDetail key={path} slug={serviceSlug}/> : projectSlug ? <ProjectDetail key={path} slug={projectSlug}/> : <Page key={path}/>}</main><Footer/><WhatsAppButton floating/></>
+  return <><a href="#main" className="skip-link">Skip to content</a><Header/><main ref={main} id="main" tabIndex={-1}>{serviceSlug ? <ServiceDetail key={path} slug={serviceSlug}/> : projectSlug ? <ProjectDetail key={path} slug={projectSlug}/> : blogSlug ? <BlogDetail key={path} slug={blogSlug}/> : <Page key={path}/>}</main><Footer/><WhatsAppButton floating/></>
 }
 
 export default function App({ initialPath }) { return <Router initialPath={initialPath}><Site/></Router> }
@@ -64,3 +70,5 @@ import './styles/whatsapp.css'
 import './styles/portfolio.css'
 import './styles/product-gallery.css'
 import './styles/clean.css'
+
+import './styles/content.css'

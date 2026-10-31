@@ -4,6 +4,7 @@ import WorkShowcase from '../components/WorkShowcase'
 import PublishedApps, { ProjectNames } from '../components/PublishedApps'
 import { Eyebrow, Button, CTA } from '../components/UI'
 import HeroSculpture from '../components/HeroSculpture'
+import LatestBlogs from '../components/Blogs'
 
 import Icon from '../components/Icon'
 
@@ -34,6 +35,6 @@ export default function Home() {
       </div><div className="services-bottom"><p>Tell us what your business needs.</p><Link to="/services" className="text-link">See our services </Link></div>
     </div></section>
     <section className="section container future-partner"><div className="partner-art"><span className="partner-art-label">CONNECTED THINKING. SHARED AMBITION.</span><div className="partner-orbit"><i/><i/><i/><div className="partner-symbol">a<span></span></div><span className="partner-dot"/></div><div className="partner-art-foot"><span>SMALL TEAM.</span><span>EXPANSIVE THINKING.</span></div></div><div className="partner-copy"><Eyebrow>03 — MEET YOUR TEAM</Eyebrow><h2>A team that cares.<br/><span className="text-muted">About your business.</span></h2><p>We design and build websites, apps and software. We listen to your needs, explain each step and keep you updated.</p><div className="partner-points"><div><Icon name="check" size={18}/><span>Talk directly with our team.</span></div><div><Icon name="check" size={18}/><span>Clear plans and regular updates.</span></div><div><Icon name="check" size={18}/><span>Support from start to launch and beyond.</span></div></div><Button to="/about" secondary>Meet our team</Button></div></section>
-    <CTA/>
+    <LatestBlogs/><CTA/>
   </>
 }

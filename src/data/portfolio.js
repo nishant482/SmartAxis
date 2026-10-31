@@ -59,7 +59,15 @@ export const publishedApps = [
   const extraTitles={'emoji-puzzle':'Emoji matching puzzle','guess-emoji':'Emoji word quiz','islamic-wallpapers':'Islamic wallpaper collection','learn-c':'C programming practice','logical-reasoning':'Logical reasoning practice','shiva-wallpapers':'Shiva wallpaper collection','gk-current-affairs':'GK & current affairs'}
   return {...app,displayTitle:titles[app.id]||extraTitles[app.id],summary:app.description,previewType:'mobile',preview:previews[app.id],kind:'app',category:'Published apps',label:app.genre.toUpperCase(),image:`/portfolio/apps/${app.id}.webp`,link:`https://play.google.com/store/apps/details?id=${app.packageId}`,order:20+index}
 })
-export const portfolio = [...ownedProjects,...publishedApps]
+// Owner-provided testing links. These are intentionally distinct from published apps.
+export const testingApps=[
+  {id:'fruit-cutting',title:'Fruit Cutting',packageId:'com.fruit.cutting',description:'A fruit-cutting game currently in testing.',displayTitle:'Fruit cutting game'},
+  {id:'knife-hit',title:'Knife Hit',packageId:'com.knife.hit.game',description:'A target challenge game currently in testing.',displayTitle:'Knife target game'},
+  {id:'arrow-puzzle',title:'Arrow Puzzle Escape Multiplayer',packageId:'com.arrow.puzzle.escape.multiplayer',description:'A puzzle game currently in testing.',displayTitle:'Puzzle escape game'},
+  {id:'roll-dice',title:'Roll Dice Multiplayer',packageId:'com.roll.dice.multiplayer',description:'A multiplayer dice game currently in testing.',displayTitle:'Multiplayer dice game'},
+].map((app,index)=>({...app,kind:'app',category:'Apps in testing',genre:'Games',appCategory:'games',releaseStage:'testing',summary:app.description,previewType:'mobile',theme:'violet',link:`https://play.google.com/store/apps/details?id=${app.packageId}`,order:50+index,image:null}))
+export const catalogueApps=[...publishedApps,...testingApps]
+export const portfolio = [...ownedProjects,...catalogueApps]
 export function mergePortfolio(managed=[]) {
   const records=new Map(portfolio.map(project=>[project.title.toLowerCase(),project]))
   for(const project of managed){const key=project.title.toLowerCase();records.set(key,{...records.get(key),...project})}

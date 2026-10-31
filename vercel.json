@@ -10,6 +10,22 @@
   },
   "rewrites": [
     {
+      "destination": "/api",
+      "source": "/sitemap-blogs.xml"
+    },
+    {
+      "destination": "/shell.html",
+      "source": "/blogs/:slug"
+    },
+    {
+      "destination": "/blogs.html",
+      "source": "/blogs"
+    },
+    {
+      "destination": "/apps.html",
+      "source": "/apps"
+    },
+    {
       "source": "/api/:path*",
       "destination": "/api"
     },

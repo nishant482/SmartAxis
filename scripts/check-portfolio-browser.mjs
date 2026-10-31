@@ -1,7 +1,7 @@
 import { chromium } from 'playwright'
 import assert from 'node:assert/strict'
 import { mkdir } from 'node:fs/promises'
-import { portfolio,publishedApps } from '../src/data/portfolio.js'
+import { portfolio,publishedApps,catalogueApps } from '../src/data/portfolio.js'
 await mkdir('qa',{recursive:true})
 const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--disable-gpu']})
 const page=await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'})
@@ -53,8 +53,8 @@ try{
   await loadImages()
   await page.screenshot({path:'qa/home-desktop.png',fullPage:true})
   await page.setViewportSize({width:390,height:844})
-  const appGrid=page.locator('#our-apps .app-directory-grid')
-  assert.equal(await appGrid.locator('.app-card').count(),publishedApps.length)
+  const appGrid=page.locator('#our-apps')
+  assert.equal(await appGrid.locator('.app-card').count(),catalogueApps.length)
   for(const width of [390,320]){
     await page.setViewportSize({width,height:844})
     const tiles=await appGrid.locator('.app-card').evaluateAll(cards=>cards.slice(0,4).map(card=>({x:card.getBoundingClientRect().x,y:card.getBoundingClientRect().y,width:card.getBoundingClientRect().width})))

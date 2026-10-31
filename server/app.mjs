@@ -8,6 +8,7 @@ import { createHash, randomBytes, randomUUID, scrypt, timingSafeEqual } from 'no
 import { promisify } from 'node:util'
 import { mkdir, writeFile, unlink } from 'node:fs/promises'
 import path from 'node:path'
+import { registerBlogs } from './blogs.mjs'
 
 const deriveKey = promisify(scrypt)
 const categories = ['Web platforms', 'E-commerce', 'Mobile apps', 'Design', 'Other']
@@ -57,7 +58,7 @@ export function createApp({getDb, uploadDir, origins, production = false, distDi
   app.set('trust proxy',trustProxy)
   app.disable('x-powered-by')
   app.use(helmet({contentSecurityPolicy:production ? {directives:{defaultSrc:["'self'"],scriptSrc:["'self'",'https://www.googletagmanager.com'],styleSrc:["'self'","'unsafe-inline'",'https://fonts.googleapis.com'],fontSrc:["'self'",'https://fonts.gstatic.com'],imgSrc:["'self'",'data:','blob:'],connectSrc:["'self'",'https://*.google-analytics.com','https://*.analytics.google.com','https://www.googletagmanager.com'],objectSrc:["'none'"],upgradeInsecureRequests:null}} : false, strictTransportSecurity:production ? undefined : false}))
-  app.use(express.json({limit:'32kb'}))
+  app.use(express.json({limit:'256kb'}))
   app.use('/api', (req,res,next) => {
     req.body ??= {}
     res.set('Cache-Control','no-store')
@@ -105,6 +106,7 @@ export function createApp({getDb, uploadDir, origins, production = false, distDi
     if (mongoImages) { const db=await getDb(); await db.collection('projectImages').deleteOne({_id:path.basename(image)}); return }
     await unlink(path.join(uploadDir,path.basename(image))).catch(error => { if (error.code !== 'ENOENT') console.warn('An unused project image could not be removed.') })
   }
+  registerBlogs(app,{getDb,auth,text,flag,RequestError,databaseConfigured,storeImage,removeImage})
   app.get('/api/health',async (req,res) => { if(!databaseConfigured)return res.json({status:'ok',database:'not configured',mode:'portfolio',contactEnabled:false}); const db=await getDb(); await db.command({ping:1}); res.json({status:'ok',database:'connected',contactEnabled:true}) })
   app.get('/sitemap-projects.xml',async (req,res)=>{
     const db=databaseConfigured?await getDb():null
@@ -233,8 +235,9 @@ export function createApp({getDb, uploadDir, origins, production = false, distDi
     app.use('/admin',(req,res,next)=>{res.set('X-Robots-Tag','noindex, nofollow');next()})
     app.get('/services',(req,res)=>res.sendFile(path.join(distDir,'services.html')))
     app.get('/portfolio',(req,res)=>res.sendFile(path.join(distDir,'portfolio.html')))
+    app.get('/blogs',(req,res)=>res.sendFile(path.join(distDir,'blogs.html')))
     app.use(express.static(distDir,{extensions:['html']}))
-    app.get(['/admin','/admin/{*path}','/portfolio/:id'],(req,res)=>res.sendFile(path.join(distDir,'shell.html')))
+    app.get(['/admin','/admin/{*path}','/portfolio/:id','/blogs/:slug'],(req,res)=>res.sendFile(path.join(distDir,'shell.html')))
     app.get('/{*path}',(req,res)=>res.status(404).sendFile(path.join(distDir,'404.html')))
   }
   app.use((error,req,res,next) => {

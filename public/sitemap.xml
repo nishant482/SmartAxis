@@ -2,4 +2,5 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap><loc>https://smartxapp-studio.vercel.app/sitemap-pages.xml</loc></sitemap>
   <sitemap><loc>https://smartxapp-studio.vercel.app/sitemap-projects.xml</loc></sitemap>
+  <sitemap><loc>https://smartxapp-studio.vercel.app/sitemap-blogs.xml</loc></sitemap>
 </sitemapindex>

@@ -7,6 +7,8 @@ export const pageMetadata = {
   '/services': ['Web & App Development Services in India | SmartXApp Studio', 'Explore SmartXApp Studio services for businesses in India: websites, mobile apps, UI/UX design, e-commerce, SaaS, custom software and API integrations.'],
   '/solutions': ['Digital Solutions for Your Business | SmartXApp Studio', 'Discover web, mobile and software solutions from SmartXApp Studio, designed around your business workflows, customers and growth plans.'],
   '/portfolio': ['Projects & Published Android Apps | SmartXApp Studio', 'Explore website experiences, connected mobile apps, business software and Android applications published by SmartXApp Studio on Google Play.'],
+  '/apps': ['Apps by Category | SmartXApp Studio', 'Explore Sanatan bhakti and devotional apps, games, study material and more Android experiences from SmartXApp Studio.'],
+  '/blogs': ['Blogs & Guides by Category | SmartXApp Studio', 'Read articles about Sanatan bhakti and devotional content, games, study material and studio updates.'],
   '/about': ['About SmartXApp Studio | Design & Software Development Studio', 'Meet SmartXApp Studio, an independent digital studio combining product strategy, UI/UX design and engineering to build websites, apps and software.'],
   '/contact': ['Contact SmartXApp Studio | Discuss Your Website or App Project', 'Tell SmartXApp Studio about your website, mobile app, e-commerce or software project. Share your goals and requirements through our project inquiry form.'],
   '/privacy': ['Privacy Policy | SmartXApp Studio', 'Learn how SmartXApp Studio handles project inquiries, portfolio images and administrator sessions.'],
@@ -18,6 +20,7 @@ for (const project of portfolio) pageMetadata[`/portfolio/${project.id}`] = [`${
 export function metadataFor(path) {
   const info = pageMetadata[path]
   if(/^\/portfolio\/[a-f\d]{24}$/i.test(path))return {title:'Project Details | SmartXApp Studio',description:'Explore this SmartXApp Studio project, its design and development details, and the live project link.',canonical:siteUrl+path,noindex:false}
+  if(/^\/blogs\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(path))return {title:'Article | SmartXApp Studio Blog',description:'Articles and updates from SmartXApp Studio.',canonical:siteUrl+path,noindex:false}
   return {title: info?.[0] || (path.startsWith('/admin') ? 'Admin | SmartXApp Studio' : 'Page not found | SmartXApp Studio'), description:info?.[1] || 'SmartXApp Studio website.', canonical:siteUrl+(path==='/'?'':path), noindex:!info}
 }
 export function structuredData(path, metadata) {

@@ -101,3 +101,14 @@ Browser scripts use the local Playwright and Chrome paths at the top of each scr
 Implementation references: [MongoDB Node driver](https://www.mongodb.com/docs/drivers/node/current/connect/), [Multer upload limits](https://expressjs.com/en/resources/middleware/multer/).
 
 The homepage and app filters use compact cards linking directly to Google Play, with three app cards per row on mobile. Process navigation and its page were removed; the old /process URL redirects to the homepage. Decorative arrows have been removed from the studio interface.
+
+## Category-wise apps and blog publishing
+
+- `/apps` and the homepage group apps into Sanatan Bhakti & Devotional, Games, Study Material, and More Apps. Mobile grids retain three apps per row.
+- `catalogueApps` includes 19 verified published apps and four owner-supplied testing games. Testing games carry a Testing label and open the exact supplied Play Store URLs; visibility depends on Google Play testing access. They are not counted as published apps.
+- `/blogs` is a live, searchable, category-filtered journal. Only published articles are returned by public APIs and the blog sitemap. No demonstration articles are automatically published.
+- Sign into the existing `/admin` account, then open `/admin/blogs`. Add a title, URL slug, category, excerpt and plain-text content; an image is optional. Category suggestions include the requested topics, and typing another category creates it through the saved article. Save a draft, preview it, then choose Published to make it visible.
+- Drafts are available only to authenticated admins. Articles and their status are stored in MongoDB `blogPosts`; cover images use the existing validated local or MongoDB image storage. The database adds a unique slug index and a publication/category index. Changing an article slug changes its public URL.
+- `GET /api/blogs`, `GET /api/blogs/:slug`, and `/sitemap-blogs.xml` are public read endpoints. Admin list/create/update/delete routes live under `/api/admin/blogs` and use the existing session, origin and upload checks.
+- `node --test tests/blogs.test.mjs` verifies category classification, testing state, authenticated CRUD, draft visibility, filtering, slug conflicts and image cleanup without touching the production database.
+- `node scripts/check-content-browser.mjs` checks app categories and mobile layout, testing links, and the admin editor with isolated browser fixtures. It does not create live articles.
