@@ -1,4 +1,4 @@
-﻿import { Link } from '../lib/router'
+import { Link } from '../lib/router'
 import Icon from './Icon'
 import PortfolioArtwork from './PortfolioArtwork'
 export default function ProjectCard({project}) {

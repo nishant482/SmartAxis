@@ -15,7 +15,7 @@ function documentFor(route,content) {
     <meta name="robots" content="${m.noindex?'noindex, follow':'index, follow, max-image-preview:large'}" />
     <link rel="canonical" href="${escape(m.canonical)}" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="SmartAxis" />
+    <meta property="og:site_name" content="SmartXApp Studio" />
     <meta property="og:title" content="${escape(m.title)}" />
     <meta property="og:description" content="${escape(m.description)}" />
     <meta property="og:url" content="${escape(m.canonical)}" />

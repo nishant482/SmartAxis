@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { CTA, Eyebrow } from '../components/UI'
 import ProjectCard from '../components/ProjectCard'
 import { usePortfolio } from '../lib/portfolio'

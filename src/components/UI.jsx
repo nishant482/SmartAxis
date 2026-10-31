@@ -4,7 +4,7 @@ import Icon from './Icon'
 export function Eyebrow({ children }) { return <div className="eyebrow"><span/>{children}</div> }
 
 export function PageHero({ number, eyebrow, title, accent, description, children }) {
-  return <section className="page-hero container"><div className="page-topline"><Eyebrow>{eyebrow}</Eyebrow><span>SMARTAXIS — {number}</span></div><h1>{title}<br/><span className="text-muted">{accent}</span></h1><div className="page-hero-bottom"><p>{description}</p>{children || <span className="page-scroll">SCROLL TO EXPLORE <span>↓</span></span>}</div></section>
+  return <section className="page-hero container"><div className="page-topline"><Eyebrow>{eyebrow}</Eyebrow><span>SMARTXAPP STUDIO — {number}</span></div><h1>{title}<br/><span className="text-muted">{accent}</span></h1><div className="page-hero-bottom"><p>{description}</p>{children || <span className="page-scroll">SCROLL TO EXPLORE <span>↓</span></span>}</div></section>
 }
 
 export function Button({ to = '/contact', children, secondary = false }) {
