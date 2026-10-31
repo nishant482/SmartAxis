@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://smart-axis.vercel.app/sitemap.xml
+Sitemap: https://smartxapp-studio.vercel.app/sitemap.xml

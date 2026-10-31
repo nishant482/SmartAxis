@@ -3,7 +3,7 @@ let initialized = false
 
 export function setAnalyticsPage(path) {
   if (typeof window === 'undefined') return false
-  const enabled = import.meta.env.PROD && window.location.hostname === 'smart-axis.vercel.app'
+  const enabled = import.meta.env.PROD && ['smartxapp-studio.vercel.app','smart-axis.vercel.app'].includes(window.location.hostname)
     && path !== '/admin' && !path.startsWith('/admin/')
   window[`ga-disable-${measurementId}`] = !enabled
   return enabled

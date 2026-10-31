@@ -110,7 +110,7 @@ export function createApp({getDb, uploadDir, origins, production = false, distDi
     const db=databaseConfigured?await getDb():null
     const projects=db?await db.collection('projects').find({published:true},{projection:{_id:1}}).sort({_id:1}).limit(45000).toArray():[]
     const ids=[...new Set([...curatedProjects.map(project=>project.id),...projects.map(project=>project._id.toString())])]
-    res.type('application/xml').set('Cache-Control','public, max-age=300').send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${ids.map(projectId=>`<url><loc>https://smart-axis.vercel.app/portfolio/${encodeURIComponent(projectId)}</loc></url>`).join('')}</urlset>`)
+    res.type('application/xml').set('Cache-Control','public, max-age=300').send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${ids.map(projectId=>`<url><loc>https://smartxapp-studio.vercel.app/portfolio/${encodeURIComponent(projectId)}</loc></url>`).join('')}</urlset>`)
   })
   app.get('/api/projects',async (req,res) => {
     if(!databaseConfigured)return res.json({projects:curatedProjects})

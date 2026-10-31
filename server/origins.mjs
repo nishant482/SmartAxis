@@ -1,5 +1,6 @@
 export function allowedOrigins(env = process.env) {
   const values = [
+    'https://smartxapp-studio.vercel.app',
     'https://smart-axis.vercel.app',
     ...(env.PUBLIC_ORIGINS || '').split(','),
     ...[env.VERCEL_URL, env.VERCEL_PROJECT_PRODUCTION_URL].filter(Boolean).map(host => `https://${host}`),

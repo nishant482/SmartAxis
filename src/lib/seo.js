@@ -1,7 +1,7 @@
 import { services } from '../data/site.js'
 import { portfolio } from '../data/portfolio.js'
 
-export const siteUrl = 'https://smart-axis.vercel.app'
+export const siteUrl = 'https://smartxapp-studio.vercel.app'
 export const pageMetadata = {
   '/': ['Website & App Development for Businesses in India | SmartXApp Studio', 'Come online and grow your business with SmartXApp Studio. We build websites, mobile apps, online stores and software for businesses in India.'],
   '/services': ['Web & App Development Services in India | SmartXApp Studio', 'Explore SmartXApp Studio services for businesses in India: websites, mobile apps, UI/UX design, e-commerce, SaaS, custom software and API integrations.'],

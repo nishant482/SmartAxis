@@ -50,13 +50,13 @@ Secrets, login details, uploads, and the local package cache are excluded from G
 
 `vercel.json` builds the Vite frontend, sends `/api/*` and `/uploads/*` to `api/index.mjs`, and sends page URLs to `index.html` so direct visits and refreshes work.
 
-On `https://smart-axis.vercel.app`, the API base is **`https://smart-axis.vercel.app/api`**. The browser deliberately uses relative `/api/...` URLs, keeping login cookies on the current domain and local development working without CORS. Do not put this address in `MONGODB_URI`.
+On `https://smartxapp-studio.vercel.app`, the API base is **`https://smartxapp-studio.vercel.app/api`**. The browser deliberately uses relative `/api/...` URLs, keeping login cookies on the current domain and local development working without CORS. Do not put this address in `MONGODB_URI`.
 
 In Vercel **Project > Settings > Environment Variables**, configure these server-only values for Production, then redeploy:
 
 - `MONGODB_URI`: the connection string from your ignored local `.env`.
 - `MONGODB_DB`: `smartaxis`.
-- `PUBLIC_ORIGINS`: `https://smart-axis.vercel.app` (comma-separated exact origins if adding a custom domain).
+- `PUBLIC_ORIGINS`: `https://smartxapp-studio.vercel.app` (comma-separated exact origins if adding a custom domain).
 - `ADMIN_USERNAME`: `admin`.
 - `ADMIN_PASSWORD_HASH`: the existing hash from `.env`, only needed to bootstrap an account in a new database. Existing database accounts keep their current password.
 
@@ -74,7 +74,7 @@ SEO targets businesses in India without inventing a local office or address. `np
 
 `/robots.txt` advertises `/sitemap.xml`. That sitemap index references static public pages and `/sitemap-projects.xml`, which lists currently published projects and refreshes within five minutes. Admin routes send `X-Robots-Tag: noindex, nofollow`; unknown static routes return the custom 404 page.
 
-To request indexing, verify the URL-prefix property `https://smart-axis.vercel.app/` in Google Search Console and submit `sitemap.xml`. If using HTML-tag verification, add Google's exact verification meta tag to `index.html` and redeploy. Use URL Inspection to request indexing of the homepage and important services. Search indexing and rankings are controlled by Google, not guaranteed by these changes. Update the canonical origin, sitemap URLs and structured data if moving to a custom domain.
+To request indexing, verify the URL-prefix property `https://smartxapp-studio.vercel.app/` in Google Search Console and submit `sitemap.xml`. If using HTML-tag verification, add Google's exact verification meta tag to `index.html` and redeploy. Use URL Inspection to request indexing of the homepage and important services. Search indexing and rankings are controlled by Google, not guaranteed by these changes. Update the canonical origin, sitemap URLs and structured data if moving to a custom domain.
 
 ## Verification commands
 
