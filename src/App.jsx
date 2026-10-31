@@ -76,3 +76,4 @@ import './styles/clean.css'
 
 import './styles/content.css'
 import './styles/daylight.css'
+import './styles/banners.css'

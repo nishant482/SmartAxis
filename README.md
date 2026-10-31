@@ -126,3 +126,7 @@ Search Console owner steps: verify the URL-prefix property for https://smartxapp
 ## Daylight visual theme
 
 Public routes use the .light-site wrapper and src/styles/daylight.css: warm off-white (#fafaf7), ink text, cobalt (#285ce6), white cards and soft sage/blue/sand panels. The homepage pairs editorial typography with an actual website preview; Apps precede Websites. Keep mobile app grids at three columns and preserve direct Google Play anchors. Theme rules are scoped to public pages so authenticated admin surfaces retain their existing styles.
+
+## Compact page banners
+
+PageBanner is the shared text-led top banner on public pages, including project details and dynamic blog articles. Blue, mint, lavender, peach and saffron variants use decorative SVG art. Banners keep one semantic H1 and adapt their height to content without clipping long titles. Public banners replace the former large hero blocks; admin pages retain their own layout. Styling is in src/styles/banners.css.

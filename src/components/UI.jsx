@@ -1,9 +1,11 @@
+import PageBanner from './PageBanner'
 import { Link } from '../lib/router'
 
 export function Eyebrow({ children }) { return <div className="eyebrow"><span/>{children}</div> }
 
 export function PageHero({ number, eyebrow, title, accent, description, children }) {
-  return <section className="page-hero container"><div className="page-topline"><Eyebrow>{eyebrow}</Eyebrow><span>SMARTXAPP STUDIO — {number}</span></div><h1>{title}<br/><span className="text-muted">{accent}</span></h1><div className="page-hero-bottom"><p>{description}</p>{children || <span className="page-scroll">SCROLL TO EXPLORE <span></span></span>}</div></section>
+  const tone=number==='APPS'?'lavender':number==='JOURNAL'?'peach':'mint'
+  return <PageBanner eyebrow={eyebrow} title={title} accent={accent} description={description} tone={tone}>{children}</PageBanner>
 }
 
 export function Button({ to = '/contact', children, secondary = false }) {
