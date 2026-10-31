@@ -19,6 +19,8 @@ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))co
 assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`${route} overflow ${width}`)
 assert.equal(await page.locator('h1').count(),1)
 assert.equal(await page.locator('.page-banner').count(),1,route+' needs one banner')
+const bannerBox=await page.locator('.page-banner').boundingBox();assert.ok(Math.abs(bannerBox.x)<1&&Math.abs(bannerBox.width-width)<1,route+' banner must be edge-to-edge')
+assert.equal(await page.locator('.page-banner').evaluate(e=>getComputedStyle(e).borderRadius),'0px')
 assert.ok((await page.locator('.page-banner').boundingBox()).height<370,route+' banner should stay compact')
 assert.equal(await page.locator('.light-site').count(),1)
 assert.equal(await page.locator('.light-site').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(250, 250, 247)')

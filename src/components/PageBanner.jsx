@@ -1,5 +1,5 @@
 export default function PageBanner({eyebrow,title,accent,description,children,tone='blue'}) {
-  return <section className={'container page-banner banner-'+tone}>
+  return <section className={'page-banner banner-'+tone}>
     <div className="banner-copy">
       {eyebrow&&<div className="banner-eyebrow"><span/>{eyebrow}</div>}
       <h1>{title}{accent&&<> <em>{accent}</em></>}</h1>

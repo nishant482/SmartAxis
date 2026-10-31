@@ -1,5 +1,5 @@
 /* Shared low-height, text-led banners across public routes. */
-.light-site .page-banner{--banner-surface:#edf2ff;--banner-ink:#476cb2;position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:190px;margin-top:25px;margin-bottom:34px;padding:29px 36px;border:1px solid #d5dff15c;border-radius:16px;background:linear-gradient(105deg,#fff7,var(--banner-surface)),var(--banner-surface)}
+.light-site .page-banner{--banner-surface:#edf2ff;--banner-ink:#476cb2;position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;width:100%;max-width:none;min-height:190px;margin:0 0 34px;padding:29px max(48px,calc((100% - 1200px)/2));border:0;border-radius:0;box-shadow:none;background:linear-gradient(105deg,#fff7,var(--banner-surface)),var(--banner-surface)}
 .light-site .banner-mint{--banner-surface:#edf3e7;--banner-ink:#70935c;border-color:#dce5d4}
 .light-site .banner-lavender{--banner-surface:#f0edfa;--banner-ink:#8970b8;border-color:#e4ddf1}
 .light-site .banner-peach{--banner-surface:#fbf0e7;--banner-ink:#b18c69;border-color:#efe0d4}
@@ -16,7 +16,7 @@
 .light-site .banner-actions{display:flex;align-items:center;flex-wrap:wrap;gap:22px;margin-top:19px}
 .light-site .banner-actions .button{min-height:44px;padding:12px 18px;font-size:12px;border-radius:7px}
 .light-site .banner-actions .text-link{min-height:44px;display:inline-flex;align-items:center;font-size:12px}
-.light-site .banner-art{position:absolute;z-index:0;right:10px;top:50%;transform:translateY(-50%);width:265px;height:190px;color:var(--banner-ink);pointer-events:none}
+.light-site .banner-art{position:absolute;z-index:0;right:max(10px,calc((100% - 1200px)/2));top:50%;transform:translateY(-50%);width:265px;height:190px;color:var(--banner-ink);pointer-events:none}
 .light-site .home-clean>.page-banner{margin-bottom:0}
 .light-site .home-clean>.home-apps{border-top:0;padding-top:44px}
 .light-site .page-banner+.section{padding-top:15px}
@@ -26,10 +26,10 @@
 .light-site .contact-intro>p{margin-top:17px}
 .light-site .page-banner+.blog-detail{padding-top:0}
 .light-site .blog-detail .article-header{padding:20px 0}
-.light-site .breadcrumb{padding-top:22px;margin-bottom:-8px;font-size:11px}
+.light-site .breadcrumb{padding-block:14px;margin-bottom:0;font-size:11px}
 @media(max-width:1000px){.light-site .page-banner{min-height:175px;padding:26px 28px}.light-site .banner-copy{width:calc(100% - 150px)}.light-site .banner-art{width:205px;right:-12px}.light-site .page-banner h1{font-size:33px}}
 @media(max-width:720px){
- .light-site .page-banner{min-height:155px;padding:23px 21px;margin-top:18px;margin-bottom:27px;border-radius:12px}
+ .light-site .page-banner{min-height:155px;padding:23px 20px;margin-top:0;margin-bottom:27px;border-radius:0}
  .light-site .banner-copy{width:100%}
  .light-site .banner-art{width:170px;height:150px;right:-65px;top:0;transform:none;opacity:.35;z-index:-1}
  .light-site .banner-eyebrow{font-size:8px;letter-spacing:1.2px;margin-bottom:11px;padding-right:16px}
@@ -41,7 +41,7 @@
  .light-site .banner-actions .text-link{font-size:11px}
  .light-site .home-clean>.home-apps{padding-top:32px}
  .light-site .contact-intro h2{font-size:25px}
- .light-site .breadcrumb{padding-top:18px;margin-bottom:-5px}
+ .light-site .breadcrumb{padding-block:12px;margin-bottom:0}
  .light-site .page-banner+.section{padding-top:5px}
 }
-@media(max-width:360px){.light-site .page-banner{padding:21px 18px}.light-site .page-banner h1{font-size:27px}.light-site .banner-actions{gap:13px}}
+@media(max-width:360px){.light-site .page-banner{padding:21px 20px}.light-site .page-banner h1{font-size:27px}.light-site .banner-actions{gap:13px}}
