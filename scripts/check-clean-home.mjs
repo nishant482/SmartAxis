@@ -9,7 +9,7 @@ const base=`http://127.0.0.1:${server.address().port}`
 const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--disable-gpu']})
 const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));await mkdir('qa',{recursive:true})
 try{
-for(const width of [1440,768,390,320]){
+for(const width of [1440,1024,768,430,390,375,320]){
 await page.setViewportSize({width,height:900});
 for(const route of ['/','/websites','/apps','/apps/sanatan-wallpapers','/services','/services/web-development','/about','/contact','/blogs','/privacy','/solutions']){
 await page.goto(base+route);await page.locator('h1').waitFor();
@@ -24,9 +24,18 @@ if(route==='/'){
 assert.equal(await page.locator('.app-card').count(),6)
 assert.ok(await page.locator('#our-apps').evaluate(e=>e.offsetTop)<await page.locator('#selected-work').evaluate(e=>e.offsetTop))
 if(width===390||width===1440)await page.screenshot({path:`qa/home-clean-${width}.png`,fullPage:true})
+if(width===390)assert.ok(await page.locator('#our-apps').evaluate(e=>e.offsetTop)<800,'Apps should follow the compact hero promptly');
 if(width<=390)assert.equal(await page.locator('.app-directory-grid').first().evaluate(e=>getComputedStyle(e).gridTemplateColumns.split(' ').length),3)
 }
 if(width===390&&['/apps','/contact','/services','/about','/solutions'].includes(route))await page.screenshot({path:'qa/daylight-'+route.slice(1)+'.png',fullPage:true});
+if(route==='/'&&width<=768){
+ const toggle=page.getByRole('button',{name:'Open menu'});assert.ok((await toggle.boundingBox()).height>=44)
+ await toggle.click();assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).overflow),'hidden')
+ await page.keyboard.press('Escape');assert.equal(await toggle.getAttribute('aria-expanded'),'false')
+ await toggle.click();await page.locator('#main-navigation').getByRole('link',{name:'Websites',exact:true}).click()
+ assert.equal(new URL(page.url()).pathname,'/websites');assert.equal(await page.locator('.nav-links.is-open').count(),0)
+ assert.ok(await page.locator('body').evaluate(e=>getComputedStyle(e).overflow)!=='hidden')
+}
 if(route==='/websites')assert.equal(await page.locator('.app-card').count(),0)
 if(route==='/apps')assert.equal(await page.locator('.app-card').count(),25)
 if(route==='/apps/sanatan-wallpapers')assert.equal(await page.locator('a[href*="details?id=com.sanatan.hindu.wallpapers"]').count(),1)
