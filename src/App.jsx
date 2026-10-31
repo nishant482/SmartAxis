@@ -14,7 +14,6 @@ import Solutions from './pages/Solutions'
 import Portfolio from './pages/Portfolio'
 import ProjectDetail from './pages/ProjectDetail'
 import About from './pages/About'
-import Process from './pages/Process'
 import Contact from './pages/Contact'
 import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
@@ -29,7 +28,6 @@ const pages = {
   '/solutions': [Solutions, 'Solutions for your business'],
   '/portfolio': [Portfolio, 'Successful Delivered Products'],
   '/about': [About, 'The studio'],
-  '/process': [Process, 'Our approach'],
   '/contact': [Contact, 'Let’s talk'],
   '/privacy': [Privacy, 'Privacy'],
   '/terms': [Terms, 'Terms'],
@@ -65,3 +63,4 @@ import './styles/backend-ui.css'
 import './styles/whatsapp.css'
 import './styles/portfolio.css'
 import './styles/product-gallery.css'
+import './styles/clean.css'

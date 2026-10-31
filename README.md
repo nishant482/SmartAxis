@@ -14,11 +14,11 @@ This clone does not include database credentials or an admin account. Without Mo
 
 ## Real project portfolio
 
-`src/data/portfolio.js` contains 23 owner projects and published applications, including 12 verified SmartAxis apps. Public headings use product-type descriptions rather than client names; original titles remain in the data for maintenance and admin matching. No installation counts, ratings, testimonials or outcomes are claimed.
+`src/data/portfolio.js` contains 30 owner projects and published applications, including 19 verified SmartAxis apps. Public headings use product-type descriptions rather than client names; original titles remain in the data for maintenance and admin matching. No installation counts, ratings, testimonials or outcomes are claimed.
 
 The gallery and product detail pages share the dark studio theme. Real public website previews and sign-in screens appear in browser mockups; official Google Play screenshots appear in phone mockups. The fashion preview was refreshed after the live storefront photography finished loading. Authenticated workspaces and customer data are never captured. BMTIndiaTech and THLSemi block automated previews and use visibly labeled illustrative interface studies.
 
-`src/data/previews.js` maps local previews to their public sources. `public/portfolio/screens/` contains 28 official app screenshots, and `public/portfolio/apps/` stores the official icons. Run `node scripts/refresh-product-previews.mjs` to refresh public sources, or append `apps` to fetch only missing application screens. `node scripts/fetch-app-assets.mjs` fetches missing official icons. These optional maintenance scripts require Playwright and installed Chrome.
+`src/data/previews.js` maps local previews to their public sources. `public/portfolio/screens/` contains 42 official app screenshots, and `public/portfolio/apps/` stores the official icons. Run `node scripts/refresh-product-previews.mjs` to refresh public sources, or append `apps` to fetch only missing application screens. `node scripts/fetch-app-assets.mjs` fetches missing official icons. These optional maintenance scripts require Playwright and installed Chrome.
 
 Sources: [SmartAxis developer catalogue](https://play.google.com/store/apps/developer?id=SmartAxis), [Sanatan Wallpaper](https://play.google.com/store/apps/details?id=com.sanatan.hindu.wallpapers), [VBike Smart](https://play.google.com/store/apps/details?id=com.livsmart.vbike_app), [VBike HR](https://play.google.com/store/apps/details?id=com.livsmart.dealercomplaint).
 
@@ -99,3 +99,5 @@ Browser scripts use the local Playwright and Chrome paths at the top of each scr
 - `src/App.jsx`: persistent public shell and separate lazy-loaded admin layout.
 
 Implementation references: [MongoDB Node driver](https://www.mongodb.com/docs/drivers/node/current/connect/), [Multer upload limits](https://expressjs.com/en/resources/middleware/multer/).
+
+The homepage and app filters use compact cards linking directly to Google Play, with three app cards per row on mobile. Process navigation and its page were removed; the old /process URL redirects to the homepage. Decorative arrows have been removed from the studio interface.

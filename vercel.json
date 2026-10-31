@@ -50,10 +50,6 @@
       "destination": "/about.html"
     },
     {
-      "source": "/process",
-      "destination": "/process.html"
-    },
-    {
       "source": "/contact",
       "destination": "/contact.html"
     },
@@ -75,6 +71,13 @@
           "value": "noindex, nofollow"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "destination": "/",
+      "permanent": true,
+      "source": "/process"
     }
   ]
 }

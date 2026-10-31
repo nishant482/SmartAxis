@@ -1,0 +1,55 @@
+/* Calm surfaces, direct app links, and a compact mobile catalogue. */
+.app-directory-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}
+.app-card{min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:22px 12px 18px;border:1px solid #8aabdf20;border-radius:12px;background:#101826;color:#dce7fa;transition:border-color .2s,background .2s}
+.app-card:hover{border-color:#8eaefa66;background:#152139}
+.app-card:focus-visible{outline:2px solid #a9c2ff;outline-offset:4px}
+.app-card-icon{display:grid;place-items:center;width:72px;height:72px;flex-shrink:0;margin-bottom:16px;color:#a0b9e8}
+.app-card-icon img{width:100%;height:100%;display:block;object-fit:cover;border-radius:18px}
+.app-card h3{font-size:12px;line-height:1.5;letter-spacing:-.15px;font-weight:600;margin:0 0 8px;min-height:36px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.app-card-category{font-size:9px;color:#7f95b8;line-height:1.5;margin-top:auto}
+.app-card-store{font-size:9px;color:#a9bfeb;margin-top:12px;line-height:1.5}
+.published-apps .section-heading{align-items:center;margin-bottom:30px}
+.published-apps .apps-intro{font-size:13px;margin:13px 0 0;line-height:1.8}
+.published-apps h2{font-size:clamp(29px,3.5vw,45px)}
+.portfolio-app-section{margin-top:52px}
+.portfolio-app-section:first-child{margin-top:0}
+.portfolio-app-section>h2{font-size:29px;letter-spacing:-.8px;margin-bottom:28px}
+.app-directory-grid .curated-project{box-shadow:none}
+.round-arrow:empty,.contact-arrow:empty,.hero-work-link>span:empty,.footer-wordmark>span:empty,.page-scroll,.art-cross,.art-caption-new{display:none}
+.header-shell .header-contact:after{display:none;content:none}
+.header-shell .header-contact{gap:0;padding:12px 18px;justify-content:center}
+.button,.text-link{gap:12px}
+.hero-work-link{gap:0}
+.cta-circle{width:auto;height:auto;min-height:50px;padding:17px 25px;border-radius:8px;gap:0;align-self:center;transform:none}
+.cta-circle>span{font-size:10px;letter-spacing:1px}
+.cta-circle:hover{transform:none}
+.cta-content h2{font-size:clamp(38px,5vw,62px)}
+.cta-section:before,.cta-section:after{display:none}
+.detail-back{gap:0}
+.project-card-info{align-items:start}
+.curated-project .product-card-foot>a{gap:0}
+.product-cover-action{gap:0}
+.sculpture-tag{box-shadow:none}
+.hero-badge{padding:8px 12px}
+.footer-wordmark{justify-content:flex-start}
+@media(max-width:1100px){.app-directory-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:720px){
+  .app-directory-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+  .app-card{padding:15px 7px 13px;border-radius:9px;min-height:166px}
+  .app-card-icon{width:54px;height:54px;margin-bottom:12px}
+  .app-card-icon img{border-radius:14px}
+  .app-card h3{font-size:10px;line-height:1.45;letter-spacing:0;min-height:43px;-webkit-line-clamp:3;margin-bottom:7px}
+  .app-card-category{font-size:8px}
+  .app-card-store{font-size:8px;margin-top:9px}
+  .published-apps .section-heading{margin-bottom:25px}
+  .published-apps .section-heading>.text-link{font-size:11px;margin-top:18px}
+  .published-apps .apps-intro{font-size:12px;max-width:280px;margin-top:10px}
+  .portfolio-app-section{margin-top:35px}
+  .portfolio-app-section>h2{font-size:25px;margin-bottom:22px}
+  .header-shell .header-contact{padding:11px 12px}
+  .cta-circle{grid-row:2;grid-column:2;width:auto;height:auto;min-height:45px;padding:14px 17px}
+  .cta-circle>span{font-size:8px}
+  .cta-content h2{font-size:38px}
+  .product-capabilities{gap:8px}
+}
+@media(prefers-reduced-motion:reduce){.app-card{transition:none}}

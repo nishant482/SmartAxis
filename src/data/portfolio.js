@@ -47,9 +47,17 @@ export const publishedApps = [
   {id:'aptitude-quiz',title:'Quantitative Aptitude Quiz',description:'A quantitative aptitude quiz application for practice and self-assessment.',packageId:'com.ssc.quantitativeprep',genre:'Education',theme:'mint'},
   {id:'english-grammar',title:'Learn English Grammar Test',description:'English grammar learning and test practice in a mobile application.',packageId:'com.ssc.englishprep.app',genre:'Education',theme:'ice'},
   {id:'number-puzzle',title:'Number Puzzle: Brain Games',description:'A number puzzle application for casual brain-game sessions.',packageId:'com.mindflicker.puzzle',genre:'Games',theme:'violet'},
+  {id:'emoji-puzzle',title:'Emoji Puzzle - Fun Emoji Game',description:'Match and connect emoji pairs in a casual puzzle game.',packageId:'com.emojigame.emojipuzzle',genre:'Games',theme:'sand'},
+  {id:'guess-emoji',title:'Guess the Emoji - Emoji Puzzle',description:'Solve word puzzles using emoji clues.',packageId:'com.emojipuzzle.emojifun.quiz.game',genre:'Games',theme:'mint'},
+  {id:'islamic-wallpapers',title:'Live Islamic Wallpapers 4K',description:'Islamic wallpapers for Android personalization.',packageId:'com.islamicwallpaper.wallpapers',genre:'Personalization',theme:'mint'},
+  {id:'learn-c',title:'Learn C Programming & DSA',description:'C programming and data structures lessons with coding practice.',packageId:'com.cprogramming.learning',genre:'Education',theme:'ice'},
+  {id:'logical-reasoning',title:'Logical Reasoning Test - Quiz',description:'Logical reasoning quizzes for learning and practice.',packageId:'com.ssc.reasoning.app',genre:'Education',theme:'violet'},
+  {id:'shiva-wallpapers',title:'Hindu Gods 4K Shiva Wallpapers',description:'Devotional Hindu god and Shiva wallpapers for Android.',packageId:'com.shubh.wishes',genre:'Personalization',theme:'saffron'},
+  {id:'gk-current-affairs',title:'Hindi GK & Current Affairs',description:'General knowledge and current affairs quizzes in Hindi.',packageId:'com.ssc.generalawareness',genre:'Education',theme:'sand'},
 ].map((app,index)=>{
   const titles={'sanatan-wallpaper':'Devotional wallpaper collection','learn-java':'Java & DSA learning','learn-flutter':'Flutter learning experience','fruit-drop':'Fruit merge puzzle','block-blast':'Block puzzle game','sanatan-status':'Devotional status & wallpapers','learn-python':'Python & DSA learning','learn-cpp':'C++ programming practice','learn-javascript':'JavaScript learning','aptitude-quiz':'Aptitude practice','english-grammar':'English grammar practice','number-puzzle':'Number puzzle experience'}
-  return {...app,displayTitle:titles[app.id],summary:app.description,previewType:'mobile',preview:previews[app.id],kind:'app',category:'Published apps',label:app.genre.toUpperCase(),image:`/portfolio/apps/${app.id}.webp`,link:`https://play.google.com/store/apps/details?id=${app.packageId}`,order:20+index}
+  const extraTitles={'emoji-puzzle':'Emoji matching puzzle','guess-emoji':'Emoji word quiz','islamic-wallpapers':'Islamic wallpaper collection','learn-c':'C programming practice','logical-reasoning':'Logical reasoning practice','shiva-wallpapers':'Shiva wallpaper collection','gk-current-affairs':'GK & current affairs'}
+  return {...app,displayTitle:titles[app.id]||extraTitles[app.id],summary:app.description,previewType:'mobile',preview:previews[app.id],kind:'app',category:'Published apps',label:app.genre.toUpperCase(),image:`/portfolio/apps/${app.id}.webp`,link:`https://play.google.com/store/apps/details?id=${app.packageId}`,order:20+index}
 })
 export const portfolio = [...ownedProjects,...publishedApps]
 export function mergePortfolio(managed=[]) {

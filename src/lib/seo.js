@@ -8,7 +8,6 @@ export const pageMetadata = {
   '/solutions': ['Digital Solutions for Your Business | SmartXApp Studio', 'Discover web, mobile and software solutions from SmartXApp Studio, designed around your business workflows, customers and growth plans.'],
   '/portfolio': ['Projects & Published Android Apps | SmartXApp Studio', 'Explore website experiences, connected mobile apps, business software and Android applications published by SmartXApp Studio on Google Play.'],
   '/about': ['About SmartXApp Studio | Design & Software Development Studio', 'Meet SmartXApp Studio, an independent digital studio combining product strategy, UI/UX design and engineering to build websites, apps and software.'],
-  '/process': ['Our Design & Development Process | SmartXApp Studio', 'See how SmartXApp Studio takes your project from discovery and design through development, testing, launch and ongoing support.'],
   '/contact': ['Contact SmartXApp Studio | Discuss Your Website or App Project', 'Tell SmartXApp Studio about your website, mobile app, e-commerce or software project. Share your goals and requirements through our project inquiry form.'],
   '/privacy': ['Privacy Policy | SmartXApp Studio', 'Learn how SmartXApp Studio handles project inquiries, portfolio images and administrator sessions.'],
   '/terms': ['Website Terms | SmartXApp Studio', 'Read the terms for using the SmartXApp Studio website, portfolio and project inquiry form.'],

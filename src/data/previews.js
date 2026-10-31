@@ -125,5 +125,54 @@ export const previews = {
       "/portfolio/screens/number-puzzle-1.webp"
     ],
     "source": "https://play.google.com/store/apps/details?id=com.mindflicker.puzzle"
+  },
+  "emoji-puzzle": {
+    "screens": [
+      "/portfolio/screens/emoji-puzzle-0.webp",
+      "/portfolio/screens/emoji-puzzle-1.webp"
+    ],
+    "source": "https://play.google.com/store/apps/details?id=com.emojigame.emojipuzzle"
+  },
+  "guess-emoji": {
+    "screens": [
+      "/portfolio/screens/guess-emoji-0.webp",
+      "/portfolio/screens/guess-emoji-1.webp"
+    ],
+    "source": "https://play.google.com/store/apps/details?id=com.emojipuzzle.emojifun.quiz.game"
+  },
+  "islamic-wallpapers": {
+    "screens": [
+      "/portfolio/screens/islamic-wallpapers-0.webp",
+      "/portfolio/screens/islamic-wallpapers-1.webp"
+    ],
+    "source": "https://play.google.com/store/apps/details?id=com.islamicwallpaper.wallpapers"
+  },
+  "learn-c": {
+    "screens": [
+      "/portfolio/screens/learn-c-0.webp",
+      "/portfolio/screens/learn-c-1.webp"
+    ],
+    "source": "https://play.google.com/store/apps/details?id=com.cprogramming.learning"
+  },
+  "logical-reasoning": {
+    "screens": [
+      "/portfolio/screens/logical-reasoning-0.webp",
+      "/portfolio/screens/logical-reasoning-1.webp"
+    ],
+    "source": "https://play.google.com/store/apps/details?id=com.ssc.reasoning.app"
+  },
+  "shiva-wallpapers": {
+    "screens": [
+      "/portfolio/screens/shiva-wallpapers-0.webp",
+      "/portfolio/screens/shiva-wallpapers-1.webp"
+    ],
+    "source": "https://play.google.com/store/apps/details?id=com.shubh.wishes"
+  },
+  "gk-current-affairs": {
+    "screens": [
+      "/portfolio/screens/gk-current-affairs-0.webp",
+      "/portfolio/screens/gk-current-affairs-1.webp"
+    ],
+    "source": "https://play.google.com/store/apps/details?id=com.ssc.generalawareness"
   }
 }

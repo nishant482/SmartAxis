@@ -30,7 +30,7 @@
   .header-shell .nav-links.is-open a{justify-content:space-between;min-height:60px;font-size:21px;font-weight:500;padding:16px 18px;border:1px solid #6c8fbe1c;border-radius:10px;background:#91b1e804;color:#a6bbdb;line-height:1.3}
   .header-shell .nav-links.is-open a:hover{background:#243955;color:#eff5ff}
   .header-shell .nav-links.is-open a[aria-current=page]{background:linear-gradient(115deg,#334f7a,#213553);color:#edf4ff;border-color:#7c9fd851}
-  .header-shell .nav-links.is-open a[aria-current=page]:after{display:block;content:'↗';position:static;width:auto;height:auto;border:0;background:none;box-shadow:none;font-size:20px;color:#bbd1ff;transform:none}
+  .header-shell .nav-links.is-open a[aria-current=page]:after{display:block;content:'';position:static;width:auto;height:auto;border:0;background:none;box-shadow:none;font-size:20px;color:#bbd1ff;transform:none}
   .header-shell .nav-links.is-open .mobile-contact{display:flex;background:#a9c5ff;color:#122748;margin-top:8px;font-size:17px;border-color:#c4d7ff}
 }
 @media(max-width:720px){
