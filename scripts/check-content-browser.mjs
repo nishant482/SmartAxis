@@ -1,11 +1,12 @@
 import { chromium } from 'playwright'
 import assert from 'node:assert/strict'
 import { mkdir } from 'node:fs/promises'
-import { catalogueApps,publishedApps,testingApps } from '../src/data/portfolio.js'
+import { catalogueApps,publishedApps,testingApps,ownedProjects } from '../src/data/portfolio.js'
 import { appCategory,blogCategoryDefaults } from '../src/data/content-categories.js'
 await mkdir('qa',{recursive:true})
 const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--disable-gpu']})
 const page=await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'})
+const apps=[...catalogueApps,...ownedProjects.filter(app=>app.link?.includes('play.google.com/'))];
 const errors=[];page.on('pageerror',error=>errors.push(error.message))
 const posts=[]
 const categories=()=>[...new Set([...blogCategoryDefaults,...posts.map(post=>post.category)])]
@@ -39,7 +40,7 @@ try{
     console.log(`New pages pass at ${width}px`)
   }
   await page.goto('http://127.0.0.1:5173/apps')
-  assert.equal(await page.locator('.app-card').count(),catalogueApps.length)
+  assert.equal(await page.locator('.app-card').count(),apps.length)
   for(const [label,id] of [['Sanatan Bhakti & Devotional','sanatan'],['Games','games'],['Study Material','study']]){
     await page.getByRole('button',{name:label,exact:true}).click()
     assert.equal(await page.locator('.app-card').count(),catalogueApps.filter(app=>appCategory(app)===id).length)

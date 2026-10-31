@@ -11,5 +11,5 @@ export function Button({ to = '/contact', children, secondary = false }) {
 }
 
 export function CTA() {
-  return <section className="cta-section"><div className="container cta-content"><div><Eyebrow>READY TO GROW YOUR BUSINESS?</Eyebrow><h2>Come online.<br/>Let’s <span>grow together.</span></h2></div><Link to="/contact" className="cta-circle" aria-label="Start your project"><span>LET’S TALK</span></Link><div className="cta-foot"><p>Tell us what you need.<br/>We’ll help you take the next step.</p><span>YOUR BUSINESS STARTS HERE </span></div></div></section>
+  return <section className="cta-section"><div className="container cta-content"><div><Eyebrow>READY TO GROW YOUR BUSINESS?</Eyebrow><h2>Build something.<br/>Let’s <span>grow together.</span></h2></div><Link to="/contact" className="cta-circle" aria-label="Start your project"><span>LET’S TALK</span></Link><div className="cta-foot"><p>Tell us what you need.<br/>We’ll help you take the next step.</p><span>YOUR BUSINESS STARTS HERE </span></div></div></section>
 }

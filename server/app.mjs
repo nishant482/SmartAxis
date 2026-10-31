@@ -234,7 +234,9 @@ export function createApp({getDb, uploadDir, origins, production = false, distDi
   if (distDir) {
     app.use('/admin',(req,res,next)=>{res.set('X-Robots-Tag','noindex, nofollow');next()})
     app.get('/services',(req,res)=>res.sendFile(path.join(distDir,'services.html')))
-    app.get('/portfolio',(req,res)=>res.sendFile(path.join(distDir,'portfolio.html')))
+    app.get('/portfolio',(req,res)=>res.redirect(301,'/websites'))
+    app.get('/websites',(req,res)=>res.sendFile(path.join(distDir,'websites.html')))
+    app.get('/apps',(req,res)=>res.sendFile(path.join(distDir,'apps.html')))
     app.get('/blogs',(req,res)=>res.sendFile(path.join(distDir,'blogs.html')))
     app.use(express.static(distDir,{extensions:['html']}))
     app.get(['/admin','/admin/{*path}','/portfolio/:id','/blogs/:slug'],(req,res)=>res.sendFile(path.join(distDir,'shell.html')))

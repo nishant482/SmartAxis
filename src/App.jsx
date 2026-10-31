@@ -9,6 +9,7 @@ import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
 import Home from './pages/Home'
 import Apps from './pages/Apps'
+import SanatanWallpapers from './pages/SanatanWallpapers'
 import Blogs from './pages/Blogs'
 import BlogDetail from './pages/BlogDetail'
 import Services from './pages/Services'
@@ -28,6 +29,8 @@ const Admin = lazy(() => import('./pages/Admin'))
 const pages = {
   '/': [Home, 'Digital experiences. Real impact.'],
   '/apps': [Apps, 'Our apps'],
+  '/apps/sanatan-wallpapers': [SanatanWallpapers, 'Sanatan Wallpapers'],
+  '/websites': [Portfolio, 'Our websites'],
   '/blogs': [Blogs, 'Studio blog'],
   '/services': [Services, 'Our expertise'],
   '/solutions': [Solutions, 'Solutions for your business'],

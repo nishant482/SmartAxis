@@ -10,6 +10,14 @@
   },
   "rewrites": [
     {
+      "source": "/apps/sanatan-wallpapers",
+      "destination": "/apps/sanatan-wallpapers.html"
+    },
+    {
+      "source": "/websites",
+      "destination": "/websites.html"
+    },
+    {
       "destination": "/api",
       "source": "/sitemap-blogs.xml"
     },
@@ -58,10 +66,6 @@
       "destination": "/solutions.html"
     },
     {
-      "source": "/portfolio",
-      "destination": "/portfolio.html"
-    },
-    {
       "source": "/about",
       "destination": "/about.html"
     },
@@ -94,6 +98,11 @@
       "destination": "/",
       "permanent": true,
       "source": "/process"
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/websites",
+      "permanent": true
     }
   ]
 }

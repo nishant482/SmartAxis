@@ -112,3 +112,13 @@ The homepage and app filters use compact cards linking directly to Google Play, 
 - `GET /api/blogs`, `GET /api/blogs/:slug`, and `/sitemap-blogs.xml` are public read endpoints. Admin list/create/update/delete routes live under `/api/admin/blogs` and use the existing session, origin and upload checks.
 - `node --test tests/blogs.test.mjs` verifies category classification, testing state, authenticated CRUD, draft visibility, filtering, slug conflicts and image cleanup without touching the production database.
 - `node scripts/check-content-browser.mjs` checks app categories and mobile layout, testing links, and the admin editor with isolated browser fixtures. It does not create live articles.
+
+## Homepage and search setup
+
+The homepage is ordered hero, selected apps, websites, services, published articles (hidden when empty), and contact. /websites lists only websites and web platforms; /apps lists the complete Android collection. /portfolio redirects permanently to /websites.
+
+Sanatan Wallpapers has a statically rendered landing page at https://smartxapp-studio.vercel.app/apps/sanatan-wallpapers with a canonical URL, SoftwareApplication schema, official screenshots, and an internal homepage link. It is included in sitemap-pages.xml. Organization and WebSite schema, public page canonical tags, robots.txt and the sitemap index are generated/published with the site.
+
+Google Analytics uses measurement ID G-5B8S4H1W11 on production public pages; an Analytics property link alone does not grant Search Console or account access. Microsoft Clarity is deferred at the owner's request; no Clarity script is installed.
+
+Search Console owner steps: verify the URL-prefix property for https://smartxapp-studio.vercel.app, submit sitemap.xml, then inspect /apps/sanatan-wallpapers and request indexing. Google decides indexing; deploying does not confirm inclusion. Google Business Profile is a separate account setup and needs the owner's real business/contact details and eligibility for in-person customer contact. No profile or address has been invented.
