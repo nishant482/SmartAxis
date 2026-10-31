@@ -1,11 +1,12 @@
 import { services } from '../data/site.js'
+import { portfolio } from '../data/portfolio.js'
 
 export const siteUrl = 'https://smart-axis.vercel.app'
 export const pageMetadata = {
   '/': ['Website & App Development for Businesses in India | SmartAxis', 'Come online and grow your business with SmartAxis. We build websites, mobile apps, online stores and software for businesses in India.'],
   '/services': ['Web & App Development Services in India | SmartAxis', 'Explore SmartAxis services for businesses in India: websites, mobile apps, UI/UX design, e-commerce, SaaS, custom software and API integrations.'],
   '/solutions': ['Digital Solutions for Your Business | SmartAxis', 'Discover web, mobile and software solutions from SmartAxis, designed around your business workflows, customers and growth plans.'],
-  '/portfolio': ['Successful Delivered Products | SmartAxis', 'See the websites, online stores, apps and software we have built. Explore our delivered products.'],
+  '/portfolio': ['Projects & Published Android Apps | SmartAxis', 'Explore website experiences, connected mobile apps, business software and Android applications published by SmartAxis on Google Play.'],
   '/about': ['About SmartAxis | Design & Software Development Studio', 'Meet SmartAxis, an independent digital studio combining product strategy, UI/UX design and engineering to build websites, apps and software.'],
   '/process': ['Our Design & Development Process | SmartAxis', 'See how SmartAxis takes your project from discovery and design through development, testing, launch and ongoing support.'],
   '/contact': ['Contact SmartAxis | Discuss Your Website or App Project', 'Tell SmartAxis about your website, mobile app, e-commerce or software project. Share your goals and requirements through our project inquiry form.'],
@@ -13,6 +14,7 @@ export const pageMetadata = {
   '/terms': ['Website Terms | SmartAxis', 'Read the terms for using the SmartAxis website, portfolio and project inquiry form.'],
 }
 for (const service of services) pageMetadata[`/services/${service.slug}`] = [`${service.title} Services in India | SmartAxis`, service.detail]
+for (const project of portfolio) pageMetadata[`/portfolio/${project.id}`] = [`${project.displayTitle||project.title} | SmartAxis Products`,project.summary||project.description]
 
 export function metadataFor(path) {
   const info = pageMetadata[path]

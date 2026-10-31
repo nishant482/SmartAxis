@@ -1,0 +1,70 @@
+import { chromium } from 'playwright'
+import assert from 'node:assert/strict'
+import { mkdir } from 'node:fs/promises'
+import { portfolio,publishedApps } from '../src/data/portfolio.js'
+await mkdir('qa',{recursive:true})
+const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--disable-gpu']})
+const page=await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'})
+const errors=[]
+async function loadImages(){await page.locator('img').evaluateAll(images=>images.forEach(image=>image.loading='eager'));await page.evaluate(()=>Promise.all([...document.images].map(image=>image.decode().catch(()=>{}))))}
+page.on('pageerror',error=>errors.push(error.message))
+try{
+  for(const width of [1440,768,390,320]){
+    await page.setViewportSize({width,height:900})
+    for(const route of ['/','/portfolio','/portfolio/vbike','/portfolio/vbike-mobile','/portfolio/sanatan-wallpaper','/contact']){
+      await page.goto('http://127.0.0.1:5173'+route)
+      try{await page.locator('h1').waitFor()}catch(error){throw new Error(`${width}px ${route}: ${error.message}; runtime: ${errors.join('; ')}`)}
+      await page.evaluate(()=>document.fonts.ready)
+      assert.equal(await page.locator('h1').count(),1,route)
+      const sizes=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}))
+      assert.ok(sizes.scroll<=sizes.width+1,`Overflow ${width} ${route}: ${sizes.scroll}`)
+    }
+    console.log(`Routes and layout passed at ${width}px`)
+  }
+  await page.setViewportSize({width:1440,height:1000})
+  await page.goto('http://127.0.0.1:5173/portfolio')
+  await page.getByRole('button',{name:/^Published apps/}).click()
+  assert.equal(await page.locator('.curated-project').count(),publishedApps.length)
+  assert.ok((await page.getByRole('link',{name:'Google Play',exact:true}).first().getAttribute('href')).includes('com.sanatan.hindu.wallpapers'))
+  await page.getByRole('button',{name:/^Mobile apps/}).click()
+  assert.equal(await page.locator('.curated-project').count(),2)
+  await page.getByRole('button',{name:/^All work/}).click()
+  assert.equal(await page.locator('.curated-project').count(),portfolio.length)
+  assert.equal(await page.locator('.project-monogram').count(),0)
+  assert.ok((await page.locator('.curated-project h3').allTextContents()).every(title=>!/VBike|RajoThreads|HaloX|BMTIndiaTech|THLSemi/i.test(title)))
+  const search=page.getByRole('searchbox',{name:'Search products'})
+  await search.fill('Python')
+  assert.equal(await page.locator('.curated-project').count(),1)
+  await search.fill('no-matching-product')
+  await page.getByRole('heading',{name:'No matching products'}).waitFor()
+  await page.getByRole('button',{name:'Clear filters',exact:true}).click()
+  assert.equal(await page.locator('.curated-project').count(),portfolio.length)
+  await loadImages()
+  assert.equal(await page.locator('.curated-project img').evaluateAll(images=>images.filter(image=>!image.naturalWidth).length),0)
+  await page.screenshot({path:'qa/portfolio-desktop.png',fullPage:true})
+  await page.goto('http://127.0.0.1:5173/')
+  await page.getByRole('tab',{name:/Fashion commerce/}).click()
+  await page.getByRole('tab',{name:/Fashion commerce/}).press('ArrowRight')
+  assert.equal(await page.getByRole('tab',{name:/Devotional wallpaper/}).getAttribute('aria-selected'),'true')
+  await page.getByRole('tab',{name:/Electric mobility/}).click()
+  await page.locator('h1').click()
+  await loadImages()
+  await page.screenshot({path:'qa/home-desktop.png',fullPage:true})
+  await page.setViewportSize({width:390,height:844})
+  await page.screenshot({path:'qa/home-mobile.png',fullPage:true})
+  await page.getByRole('button',{name:'Open menu'}).click()
+  await page.locator('#main-navigation').getByRole('link',{name:'Products',exact:true}).click()
+  await page.locator('h1').waitFor()
+  assert.equal(new URL(page.url()).pathname,'/portfolio')
+  await loadImages()
+  await page.screenshot({path:'qa/portfolio-mobile.png',fullPage:true})
+  await page.goto('http://127.0.0.1:5173/portfolio/vbike-mobile')
+  await loadImages()
+  assert.equal(await page.locator('.detail-screens img').count(),2)
+  await page.screenshot({path:'qa/product-detail-mobile.png',fullPage:true})
+  await page.goto('http://127.0.0.1:5173/contact')
+  assert.equal(await page.locator('button[type="submit"]').isDisabled(),true)
+  assert.equal(await page.getByText('Message delivery not configured',{exact:true}).count(),1)
+  assert.deepEqual(errors,[])
+  console.log('Filters, project tabs, keyboard navigation, mobile menu, contact state and runtime checks passed.')
+}finally{await browser.close()}

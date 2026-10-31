@@ -1,16 +1,28 @@
-﻿# SmartAxis
+# SmartAxis
 
 React/Vite website with a MongoDB-backed Express API and a private admin workspace.
 
 ## Run locally
 
 1. Install packages: `npm install`.
-2. For a new installation, copy `.env.example` to `.env` and set `MONGODB_URI`. Do not overwrite an existing `.env`.
-3. Run `npm run admin:setup` once. Initial login details are written to the ignored `.admin-access.local` file.
+2. The public site works immediately in portfolio mode, without a database. To enable contact storage and admin access, copy `.env.example` to `.env` and set `MONGODB_URI`. Do not overwrite an existing `.env`.
+3. When using MongoDB, run `npm run admin:setup` once. Initial login details are written to the ignored `.admin-access.local` file.
 4. Run `npm run dev` to start Vite on port 5173 and the API on port 4000.
 5. Website: http://localhost:5173. Admin: http://localhost:5173/admin.
 
-This workspace already has its database and initial account configured. Change the initial password in **Admin > Account** after signing in. A password change signs out all current sessions. Do not put database credentials in `VITE_` variables, browser code, or Git.
+This clone does not include database credentials or an admin account. Without MongoDB, the public catalogue remains available and contact submissions/admin operations return a clear configuration error. The contact button stays disabled until the API reports database availability. After configuring an account, change the initial password in **Admin > Account**. Do not put database credentials in `VITE_` variables, browser code, or Git.
+
+## Real project portfolio
+
+`src/data/portfolio.js` contains 23 owner projects and published applications, including 12 verified SmartAxis apps. Public headings use product-type descriptions rather than client names; original titles remain in the data for maintenance and admin matching. No installation counts, ratings, testimonials or outcomes are claimed.
+
+The gallery and product detail pages share the dark studio theme. Real public website previews and sign-in screens appear in browser mockups; official Google Play screenshots appear in phone mockups. The fashion preview was refreshed after the live storefront photography finished loading. Authenticated workspaces and customer data are never captured. BMTIndiaTech and THLSemi block automated previews and use visibly labeled illustrative interface studies.
+
+`src/data/previews.js` maps local previews to their public sources. `public/portfolio/screens/` contains 28 official app screenshots, and `public/portfolio/apps/` stores the official icons. Run `node scripts/refresh-product-previews.mjs` to refresh public sources, or append `apps` to fetch only missing application screens. `node scripts/fetch-app-assets.mjs` fetches missing official icons. These optional maintenance scripts require Playwright and installed Chrome.
+
+Sources: [SmartAxis developer catalogue](https://play.google.com/store/apps/developer?id=SmartAxis), [Sanatan Wallpaper](https://play.google.com/store/apps/details?id=com.sanatan.hindu.wallpapers), [VBike Smart](https://play.google.com/store/apps/details?id=com.livsmart.vbike_app), [VBike HR](https://play.google.com/store/apps/details?id=com.livsmart.dealercomplaint).
+
+The curated catalogue is prerendered and available without API connectivity. Published admin entries can add projects or override a curated entry by title. Edit curated entries in `src/data/portfolio.js`; they are not database records and cannot be deleted in the admin panel.
 
 ## Admin features
 
@@ -67,6 +79,8 @@ To request indexing, verify the URL-prefix property `https://smart-axis.vercel.a
 ## Verification commands
 
 - `npm run build` and `npm run lint`.
+- `node --test tests/portfolio.test.mjs tests/seo.test.mjs tests/origins.test.mjs`: no-database catalogue behavior, admin/contact rejection in portfolio mode, managed overrides, prerendered pages and production routes.
+- `node scripts/check-portfolio-browser.mjs`: desktop/tablet/mobile layout, real portfolio filtering, keyboard tabs, app links, mobile navigation and unconfigured contact state. Uses an optional local Playwright install (`npm install --no-save --package-lock=false playwright`) and installed Chrome. Screenshots are saved in ignored `qa/`.
 - `npm run test:backend`: creates a uniquely named temporary MongoDB database; verifies authentication, protected endpoints, validation, local image lifecycle, draft visibility, inquiry idempotency, statuses, password changes, and sign-out. Removes only its temporary database and upload folder afterward.
 - `node admin-browser-check.cjs`: checks the persistent navbar, login, project uploads/publishing, public project rendering, contact-to-inbox flow, and responsive admin layouts. Creates clearly labeled browser-test records in the configured database and removes them in cleanup. Reads initial login details from `.admin-access.local`; update that local file if you change the test account password.
 - `node browser-check.cjs`: checks public routes, responsive layouts, filters, solution tabs, FAQs, and mobile navigation.
