@@ -38,7 +38,7 @@ export default function Header() {
     window.addEventListener('resize', onResize)
     return () => { document.body.style.overflow = previous; document.removeEventListener('keydown', onKey); window.removeEventListener('resize', onResize) }
   }, [open, setOpen])
-  const links = [['Home', '/'], ['Services', '/services'], ['Solutions', '/solutions'], ['Websites', '/websites'], ['Apps', '/apps'], ['Blogs', '/blogs'], ['About', '/about']]
+  const links = [['Home', '/'], ['Apps', '/apps'], ['Websites', '/websites'], ['Services', '/services'], ['Blogs', '/blogs'], ['About', '/about']]
   return <header className={`site-header header-shell ${open ? 'header-menu-open' : ''}`}>
     <div className="container navigation">
       <Brand />

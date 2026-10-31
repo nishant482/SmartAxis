@@ -122,3 +122,7 @@ Sanatan Wallpapers has a statically rendered landing page at https://smartxapp-s
 Google Analytics uses measurement ID G-5B8S4H1W11 on production public pages; an Analytics property link alone does not grant Search Console or account access. Microsoft Clarity is deferred at the owner's request; no Clarity script is installed.
 
 Search Console owner steps: verify the URL-prefix property for https://smartxapp-studio.vercel.app, submit sitemap.xml, then inspect /apps/sanatan-wallpapers and request indexing. Google decides indexing; deploying does not confirm inclusion. Google Business Profile is a separate account setup and needs the owner's real business/contact details and eligibility for in-person customer contact. No profile or address has been invented.
+
+## Daylight visual theme
+
+Public routes use the .light-site wrapper and src/styles/daylight.css: warm off-white (#fafaf7), ink text, cobalt (#285ce6), white cards and soft sage/blue/sand panels. The homepage pairs editorial typography with an actual website preview; Apps precede Websites. Keep mobile app grids at three columns and preserve direct Google Play anchors. Theme rules are scoped to public pages so authenticated admin surfaces retain their existing styles.

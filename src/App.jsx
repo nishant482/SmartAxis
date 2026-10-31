@@ -59,7 +59,7 @@ function Site() {
   }, [path, title, serviceSlug, projectSlug, isAdmin])
 
   if (isAdmin) return <Suspense fallback={<div className="resource-state">Loading admin…</div>}><Admin/></Suspense>
-  return <><a href="#main" className="skip-link">Skip to content</a><Header/><main ref={main} id="main" tabIndex={-1}>{serviceSlug ? <ServiceDetail key={path} slug={serviceSlug}/> : projectSlug ? <ProjectDetail key={path} slug={projectSlug}/> : blogSlug ? <BlogDetail key={path} slug={blogSlug}/> : <Page key={path}/>}</main><Footer/><WhatsAppButton floating/></>
+  return <div className="light-site"><a href="#main" className="skip-link">Skip to content</a><Header/><main ref={main} id="main" tabIndex={-1}>{serviceSlug ? <ServiceDetail key={path} slug={serviceSlug}/> : projectSlug ? <ProjectDetail key={path} slug={projectSlug}/> : blogSlug ? <BlogDetail key={path} slug={blogSlug}/> : <Page key={path}/>}</main><Footer/><WhatsAppButton floating/></div>
 }
 
 export default function App({ initialPath }) { return <Router initialPath={initialPath}><Site/></Router> }
@@ -75,3 +75,4 @@ import './styles/product-gallery.css'
 import './styles/clean.css'
 
 import './styles/content.css'
+import './styles/daylight.css'
