@@ -136,3 +136,9 @@ PageBanner is the shared text-led top banner on public pages, including project 
 /apps/sanatan-bhakti covers the current Sanatan Wallpaper app (com.sanatan.bhakti.app). Its Diwali, Hindi/English Aarti, Chhath Puja and Hindu God wallpaper guides are statically rendered, canonical, internally linked and included in sitemap-pages.xml. /apps/games is a separate searchable game catalogue; testing entries stay labeled. Features and official artwork were checked against Google Play on 2026-11-03.
 
 The owner-provided Downloads file googlead15a3ab7be7ceed.html is copied byte-for-byte into public/ and served at the domain root for Search Console URL-prefix verification. Keep it deployed. The account owner still needs to click Verify in Search Console, submit sitemap.xml and request indexing of the relevant URLs. Publishing the file is not confirmation that Google verified or indexed the site, and no ranking position is guaranteed.
+
+## Microsoft Clarity
+
+Set the real public VITE_CLARITY_PROJECT_ID in Vercel production build environment and redeploy. Blank or invalid IDs keep tracking disabled. The loader runs once on the two production domains and excludes contact/admin pages. Navigation from a recorded public page to contact/admin starts a fresh document before rendering private content. The contact form is additionally masked. The privacy disclosure appears only when a valid project ID is configured. Confirm script and collect requests in production and the project dashboard before claiming tracking is active.
+
+Search Console verification and sitemap submission require a signed-in Google account; publishing the verification file alone does not perform those account actions.

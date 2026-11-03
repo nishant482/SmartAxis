@@ -1,3 +1,5 @@
+import { initializeClarity } from './clarity'
+
 export const measurementId = 'G-5B8S4H1W11'
 let initialized = false
 
@@ -10,6 +12,7 @@ export function setAnalyticsPage(path) {
 }
 
 export function initializeAnalytics(path) {
+  initializeClarity(path)
   if (!setAnalyticsPage(path) || initialized) return
   initialized = true
   window.dataLayer = window.dataLayer || []

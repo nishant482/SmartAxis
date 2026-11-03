@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { RouterContext, useRouter } from './RouterContext'
 import { setAnalyticsPage } from './analytics'
+import { clarityNeedsDocument } from './clarity'
 
 export function Router({ children, initialPath }) {
   const [path, setPath] = useState(initialPath || (typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') || '/' : '/'))
 
   useEffect(() => {
     const onPop = () => {
+      if(clarityNeedsDocument(window.location.pathname)){setAnalyticsPage(window.location.pathname);window.location.reload();return}
       setAnalyticsPage(window.location.pathname)
       setPath(window.location.pathname.replace(/\/$/, '') || '/')
     }
@@ -15,6 +17,7 @@ export function Router({ children, initialPath }) {
   }, [])
 
   function navigate(to) {
+    if(clarityNeedsDocument(to)){setAnalyticsPage(to);window.location.assign(to);return}
     if (to === path) { window.scrollTo({ top: 0, behavior: 'smooth' }); return }
     setAnalyticsPage(to)
     window.history.pushState({}, '', to)
