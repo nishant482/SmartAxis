@@ -46,9 +46,11 @@ test('prerendered routes, metadata, sitemap and crawler responses', async()=>{
       assert.ok(sitemap.includes(page.path),page.path)
       assert.ok(!html.includes('noindex, follow'),page.path)
     }
-    const verification=await fetch(base+'/googlead15a3ab7be7ceed.html',{redirect:'manual'})
-    assert.equal(verification.status,200)
-    assert.equal(await verification.text(),await readFile('public/googlead15a3ab7be7ceed.html','utf8'))
+    for(const filename of ['googlead15a3ab7be7ceed.html','google14fccd8fe753ec91.html']){
+      const verification=await fetch(base+'/'+filename,{redirect:'manual'})
+      assert.equal(verification.status,200)
+      assert.equal(await verification.text(),await readFile('public/'+filename,'utf8'))
+    }
     assert.match(await (await fetch(base+'/apps/games')).text(),/ItemList/)
     const admin=await fetch(base+'/admin/projects')
     assert.equal(admin.status,200)
