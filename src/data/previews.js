@@ -1,5 +1,6 @@
 // Public source previews. No authenticated pages or user data.
 export const previews = {
+  'sanatan-bhakti':{screens:[1,2,3,4].map(n=>'/portfolio/screens/sanatan-bhakti-'+n+'.webp'),source:'https://play.google.com/store/apps/details?id=com.sanatan.bhakti.app'},
   "rajothreads": {
     "desktop": "/portfolio/projects/rajothreads.webp",
     "source": "https://rajothreads.com/"

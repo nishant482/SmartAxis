@@ -43,7 +43,7 @@ if(route==='/'&&width<=768){
  assert.ok(await page.locator('body').evaluate(e=>getComputedStyle(e).overflow)!=='hidden')
 }
 if(route==='/websites')assert.equal(await page.locator('.app-card').count(),0)
-if(route==='/apps')assert.equal(await page.locator('.app-card').count(),25)
+if(route==='/apps')assert.equal(await page.locator('.app-card').count(),26)
 if(route==='/apps/sanatan-wallpapers')assert.equal(await page.locator('a[href*="details?id=com.sanatan.hindu.wallpapers"]').count(),1)
 }
 }

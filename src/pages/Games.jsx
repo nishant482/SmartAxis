@@ -1,0 +1,5 @@
+import { Link } from '../lib/router'
+import PageBanner from '../components/PageBanner'
+import AppCatalogue from '../components/AppCatalogue'
+import { catalogueApps } from '../data/portfolio'
+export default function Games(){const apps=catalogueApps.filter(app=>app.genre==='Games');return <><PageBanner eyebrow="ANDROID GAMES" title="A little play, every day." description="Fruit merge, block puzzles, emoji challenges and more Android games from SmartAxis." tone="lavender"/><section className="container section section-no-top"><div className="games-intro"><h2>Find your next puzzle</h2><p>Explore fruit-merging games, block puzzles, number challenges and emoji quizzes. Every card links directly to Google Play so you can check its current availability and details. Games marked Testing use the owner-provided testing links; access may be limited to enrolled testers.</p><Link to="/apps" className="text-link">Explore all app categories</Link></div><AppCatalogue apps={apps} searchable/></section></>}

@@ -9,6 +9,9 @@ import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
 import Home from './pages/Home'
 import Apps from './pages/Apps'
+import DevotionalApp from './pages/DevotionalApp'
+import Games from './pages/Games'
+import { devotionalPages } from './data/devotional'
 import SanatanWallpapers from './pages/SanatanWallpapers'
 import Blogs from './pages/Blogs'
 import BlogDetail from './pages/BlogDetail'
@@ -26,7 +29,10 @@ import './App.css'
 
 const Admin = lazy(() => import('./pages/Admin'))
 
+const devotionalRoutes=Object.fromEntries(devotionalPages.map(page=>[page.path,[()=> <DevotionalApp path={page.path}/>,page.title]]))
 const pages = {
+  ...devotionalRoutes,
+  '/apps/games': [Games, 'Android Games'],
   '/': [Home, 'Digital experiences. Real impact.'],
   '/apps': [Apps, 'Our apps'],
   '/apps/sanatan-wallpapers': [SanatanWallpapers, 'Sanatan Wallpapers'],
@@ -77,3 +83,4 @@ import './styles/clean.css'
 import './styles/content.css'
 import './styles/daylight.css'
 import './styles/banners.css'
+import './styles/devotional.css'

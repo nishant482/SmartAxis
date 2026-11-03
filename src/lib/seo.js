@@ -1,5 +1,6 @@
 import { services } from '../data/site.js'
 import { portfolio } from '../data/portfolio.js'
+import { devotionalPages,bhaktiStoreUrl } from '../data/devotional.js'
 
 export const siteUrl = 'https://smartxapp-studio.vercel.app'
 export const pageMetadata = {
@@ -15,8 +16,10 @@ export const pageMetadata = {
   '/privacy': ['Privacy Policy | SmartXApp Studio', 'Learn how SmartXApp Studio handles project inquiries, portfolio images and administrator sessions.'],
   '/terms': ['Website Terms | SmartXApp Studio', 'Read the terms for using the SmartXApp Studio website, portfolio and project inquiry form.'],
 }
+for(const page of devotionalPages)pageMetadata[page.path]=[page.seoTitle,page.description]
+pageMetadata['/apps/games']=['Android Puzzle & Casual Games | SmartXApp Studio','Explore Fruit Drop, block puzzles, emoji games and more Android games from SmartAxis. Open official Google Play links and see clearly marked testing games.']
 for (const service of services) pageMetadata[`/services/${service.slug}`] = [`${service.title} Services in India | SmartXApp Studio`, service.detail]
-for (const project of portfolio) pageMetadata[`/portfolio/${project.id}`] = [`${project.displayTitle||project.title} | SmartXApp Studio Products`,project.summary||project.description]
+for (const project of portfolio.filter(project=>project.id!=='sanatan-bhakti')) pageMetadata[`/portfolio/${project.id}`] = [`${project.displayTitle||project.title} | SmartXApp Studio Products`,project.summary||project.description]
 
 export function metadataFor(path) {
   const info = pageMetadata[path]
@@ -31,6 +34,16 @@ export function structuredData(path, metadata) {
   const service=services.find(value=>path===`/services/${value.slug}`)
   if(service)graph.push({'@type':'Service',name:service.title,description:service.detail,url:metadata.canonical,areaServed:{'@type':'Country',name:'India'},provider:{'@id':organization['@id']}})
   if(path==='/apps/sanatan-wallpapers')graph.push({'@type':'SoftwareApplication',name:'Sanatan Wallpaper: Hindu Gods',operatingSystem:'Android',applicationCategory:'LifestyleApplication',url:metadata.canonical,installUrl:'https://play.google.com/store/apps/details?id=com.sanatan.hindu.wallpapers',image:siteUrl+'/portfolio/apps/sanatan-wallpaper.webp',publisher:{'@id':organization['@id']}})
+  const devotional=devotionalPages.find(page=>page.path===path)
+  if(devotional){
+    const appId=siteUrl+'/apps/sanatan-bhakti#app'
+    graph.push({'@type':'SoftwareApplication','@id':appId,name:'Sanatan Wallpaper',operatingSystem:'Android',applicationCategory:'LifestyleApplication',url:siteUrl+'/apps/sanatan-bhakti',installUrl:bhaktiStoreUrl,image:siteUrl+'/portfolio/apps/sanatan-bhakti.webp',publisher:{'@id':organization['@id']}})
+    graph[2].about={'@id':appId}
+    const crumbs=[['Home','/'],['Apps','/apps'],['Sanatan Wallpaper','/apps/sanatan-bhakti']]
+    if(path!=='/apps/sanatan-bhakti')crumbs.push([devotional.title,path])
+    graph.push({'@type':'BreadcrumbList',itemListElement:crumbs.map(([name,url],index)=>({'@type':'ListItem',position:index+1,name,item:siteUrl+url}))})
+  }
+  if(path==='/apps/games')graph.push({'@type':'ItemList',name:'Android games by SmartAxis',itemListElement:portfolio.filter(app=>app.genre==='Games'&&app.releaseStage!=='testing').map((app,index)=>({'@type':'ListItem',position:index+1,name:app.title,url:app.link}))})
   return {'@context':'https://schema.org','@graph':graph}
 }
 export function updateMetadata(path, overrides={}) {

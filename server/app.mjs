@@ -236,6 +236,8 @@ export function createApp({getDb, uploadDir, origins, production = false, distDi
     app.get('/services',(req,res)=>res.sendFile(path.join(distDir,'services.html')))
     app.get('/portfolio',(req,res)=>res.redirect(301,'/websites'))
     app.get('/websites',(req,res)=>res.sendFile(path.join(distDir,'websites.html')))
+    app.get('/apps/sanatan-bhakti',(req,res)=>res.sendFile(path.join(distDir,'apps/sanatan-bhakti.html')))
+    app.get('/portfolio/sanatan-bhakti',(req,res)=>res.redirect(301,'/apps/sanatan-bhakti'))
     app.get('/apps',(req,res)=>res.sendFile(path.join(distDir,'apps.html')))
     app.get('/blogs',(req,res)=>res.sendFile(path.join(distDir,'blogs.html')))
     app.use(express.static(distDir,{extensions:['html']}))

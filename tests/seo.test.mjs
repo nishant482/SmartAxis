@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { createApp } from '../server/app.mjs'
+import { devotionalPages,bhaktiStoreUrl } from '../src/data/devotional.js'
 import { pageMetadata, siteUrl } from '../src/lib/seo.js'
 
 test('prerendered routes, metadata, sitemap and crawler responses', async()=>{
@@ -37,6 +38,18 @@ test('prerendered routes, metadata, sitemap and crawler responses', async()=>{
     const legacy=await fetch(base+'/portfolio',{redirect:'manual'})
     assert.equal(legacy.status,301)
     assert.equal(legacy.headers.get('location'),'/websites')
+    for(const page of devotionalPages){
+      const response=await fetch(base+page.path,{redirect:'manual'}),html=await response.text()
+      assert.equal(response.status,200,page.path)
+      assert.ok(html.includes(bhaktiStoreUrl),page.path)
+      assert.ok(html.includes('SoftwareApplication')&&html.includes('BreadcrumbList'),page.path)
+      assert.ok(sitemap.includes(page.path),page.path)
+      assert.ok(!html.includes('noindex, follow'),page.path)
+    }
+    const verification=await fetch(base+'/googlead15a3ab7be7ceed.html',{redirect:'manual'})
+    assert.equal(verification.status,200)
+    assert.equal(await verification.text(),await readFile('public/googlead15a3ab7be7ceed.html','utf8'))
+    assert.match(await (await fetch(base+'/apps/games')).text(),/ItemList/)
     const admin=await fetch(base+'/admin/projects')
     assert.equal(admin.status,200)
     assert.equal(admin.headers.get('x-robots-tag'),'noindex, nofollow')

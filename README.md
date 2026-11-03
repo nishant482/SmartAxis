@@ -130,3 +130,9 @@ Public routes use the .light-site wrapper and src/styles/daylight.css: warm off-
 ## Compact page banners
 
 PageBanner is the shared text-led top banner on public pages, including project details and dynamic blog articles. Blue, mint, lavender, peach and saffron variants use decorative SVG art. Banners keep one semantic H1 and adapt their height to content without clipping long titles. Public banners replace the former large hero blocks; admin pages retain their own layout. Styling is in src/styles/banners.css.
+
+## Sanatan devotional search pages
+
+/apps/sanatan-bhakti covers the current Sanatan Wallpaper app (com.sanatan.bhakti.app). Its Diwali, Hindi/English Aarti, Chhath Puja and Hindu God wallpaper guides are statically rendered, canonical, internally linked and included in sitemap-pages.xml. /apps/games is a separate searchable game catalogue; testing entries stay labeled. Features and official artwork were checked against Google Play on 2026-11-03.
+
+The owner-provided Downloads file googlead15a3ab7be7ceed.html is copied byte-for-byte into public/ and served at the domain root for Search Console URL-prefix verification. Keep it deployed. The account owner still needs to click Verify in Search Console, submit sitemap.xml and request indexing of the relevant URLs. Publishing the file is not confirmation that Google verified or indexed the site, and no ranking position is guaranteed.

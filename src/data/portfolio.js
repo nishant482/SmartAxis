@@ -35,6 +35,7 @@ export const ownedProjects = [
 })
 
 export const publishedApps = [
+  {id:'sanatan-bhakti',title:'Sanatan Wallpaper',displayTitle:'Sanatan Wallpapers & Aarti',description:'Hindu God HD/4K wallpapers, Diwali and Chhath Puja collections, Hindi and English Aarti, ringtones and daily Darshan.',packageId:'com.sanatan.bhakti.app',genre:'Lifestyle',appCategory:'sanatan',theme:'saffron',featured:true},
   {id:'sanatan-wallpaper',title:'Sanatan Wallpaper: Hindu Gods',description:'A collection of Hindu devotional wallpapers for personalizing your Android home and lock screens.',packageId:'com.sanatan.hindu.wallpapers',genre:'Personalization',initials:'ॐ',theme:'saffron',featured:true},
   {id:'learn-java',title:'Learn Java & DSA Certificate',description:'Java programming and data structures learning, with examples, quizzes and course completion certificates.',packageId:'com.learn.java.programming',genre:'Education',initials:'{ J }',theme:'ice'},
   {id:'learn-flutter',title:'Learn Flutter With Certificate',description:'A Flutter learning application published by SmartXApp Studio on Google Play.',packageId:'com.flutterlearning.app',genre:'Education',initials:'F',theme:'violet'},
@@ -57,7 +58,7 @@ export const publishedApps = [
 ].map((app,index)=>{
   const titles={'sanatan-wallpaper':'Devotional wallpaper collection','learn-java':'Java & DSA learning','learn-flutter':'Flutter learning experience','fruit-drop':'Fruit merge puzzle','block-blast':'Block puzzle game','sanatan-status':'Devotional status & wallpapers','learn-python':'Python & DSA learning','learn-cpp':'C++ programming practice','learn-javascript':'JavaScript learning','aptitude-quiz':'Aptitude practice','english-grammar':'English grammar practice','number-puzzle':'Number puzzle experience'}
   const extraTitles={'emoji-puzzle':'Emoji matching puzzle','guess-emoji':'Emoji word quiz','islamic-wallpapers':'Islamic wallpaper collection','learn-c':'C programming practice','logical-reasoning':'Logical reasoning practice','shiva-wallpapers':'Shiva wallpaper collection','gk-current-affairs':'GK & current affairs'}
-  return {...app,displayTitle:titles[app.id]||extraTitles[app.id],summary:app.description,previewType:'mobile',preview:previews[app.id],kind:'app',category:'Published apps',label:app.genre.toUpperCase(),image:`/portfolio/apps/${app.id}.webp`,link:`https://play.google.com/store/apps/details?id=${app.packageId}`,order:20+index}
+  return {...app,displayTitle:app.displayTitle||titles[app.id]||extraTitles[app.id],summary:app.description,previewType:'mobile',preview:previews[app.id],kind:'app',category:'Published apps',label:app.genre.toUpperCase(),image:`/portfolio/apps/${app.id}.webp`,link:`https://play.google.com/store/apps/details?id=${app.packageId}`,order:20+index}
 })
 // Owner-provided testing links. These are intentionally distinct from published apps.
 export const testingApps=[

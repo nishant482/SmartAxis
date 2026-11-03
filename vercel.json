@@ -10,6 +10,30 @@
   },
   "rewrites": [
     {
+      "source": "/apps/sanatan-bhakti",
+      "destination": "/apps/sanatan-bhakti.html"
+    },
+    {
+      "source": "/apps/sanatan-bhakti/diwali-wallpapers",
+      "destination": "/apps/sanatan-bhakti/diwali-wallpapers.html"
+    },
+    {
+      "source": "/apps/sanatan-bhakti/aarti",
+      "destination": "/apps/sanatan-bhakti/aarti.html"
+    },
+    {
+      "source": "/apps/sanatan-bhakti/chhath-puja",
+      "destination": "/apps/sanatan-bhakti/chhath-puja.html"
+    },
+    {
+      "source": "/apps/sanatan-bhakti/hindu-god-wallpapers",
+      "destination": "/apps/sanatan-bhakti/hindu-god-wallpapers.html"
+    },
+    {
+      "source": "/apps/games",
+      "destination": "/apps/games.html"
+    },
+    {
       "source": "/apps/sanatan-wallpapers",
       "destination": "/apps/sanatan-wallpapers.html"
     },
@@ -102,6 +126,11 @@
     {
       "source": "/portfolio",
       "destination": "/websites",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/sanatan-bhakti",
+      "destination": "/apps/sanatan-bhakti",
       "permanent": true
     }
   ]
