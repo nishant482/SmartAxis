@@ -119,7 +119,7 @@ The homepage is ordered hero, selected apps, websites, services, published artic
 
 Sanatan Wallpapers has a statically rendered landing page at https://smartxapp-studio.vercel.app/apps/sanatan-wallpapers with a canonical URL, SoftwareApplication schema, official screenshots, and an internal homepage link. It is included in sitemap-pages.xml. Organization and WebSite schema, public page canonical tags, robots.txt and the sitemap index are generated/published with the site.
 
-Google Analytics uses measurement ID G-5B8S4H1W11 on production public pages; an Analytics property link alone does not grant Search Console or account access. Microsoft Clarity is deferred at the owner's request; no Clarity script is installed.
+Google Analytics uses measurement ID G-5B8S4H1W11 on production public pages; an Analytics property link alone does not grant Search Console or account access. Microsoft Clarity is configured in production with project z7vabowvyh; its tracking tag and collection requests were verified on 2026-11-03.
 
 Search Console owner steps: verify the URL-prefix property for https://smartxapp-studio.vercel.app, submit sitemap.xml, then inspect /apps/sanatan-wallpapers and request indexing. Google decides indexing; deploying does not confirm inclusion. Google Business Profile is a separate account setup and needs the owner's real business/contact details and eligibility for in-person customer contact. No profile or address has been invented.
 
@@ -135,10 +135,10 @@ PageBanner is the shared text-led top banner on public pages, including project 
 
 /apps/sanatan-bhakti covers the current Sanatan Wallpaper app (com.sanatan.bhakti.app). Its Diwali, Hindi/English Aarti, Chhath Puja and Hindu God wallpaper guides are statically rendered, canonical, internally linked and included in sitemap-pages.xml. /apps/games is a separate searchable game catalogue; testing entries stay labeled. Features and official artwork were checked against Google Play on 2026-11-03.
 
-The owner-provided Downloads file googlead15a3ab7be7ceed.html is copied byte-for-byte into public/ and served at the domain root for Search Console URL-prefix verification. Keep it deployed. The account owner still needs to click Verify in Search Console, submit sitemap.xml and request indexing of the relevant URLs. Publishing the file is not confirmation that Google verified or indexed the site, and no ranking position is guaranteed.
+The owner-provided Downloads file googlead15a3ab7be7ceed.html is copied byte-for-byte into public/ and served at the domain root for Search Console URL-prefix verification. Keep it deployed. The selected account was verified on 2026-11-03 using the additional owner-provided google14fccd8fe753ec91.html file. Both verification files remain deployed. The sitemap index was submitted and Google reported that it processed successfully. Explicit indexing-request confirmations were observed for the Sanatan app landing page and Aarti guide; Diwali and Chhath requests were initiated. All topic pages and games are included in the submitted sitemap. Google index inclusion and rankings remain unconfirmed.
 
 ## Microsoft Clarity
 
 Set the real public VITE_CLARITY_PROJECT_ID in Vercel production build environment and redeploy. Blank or invalid IDs keep tracking disabled. The loader runs once on the two production domains and excludes contact/admin pages. Navigation from a recorded public page to contact/admin starts a fresh document before rendering private content. The contact form is additionally masked. The privacy disclosure appears only when a valid project ID is configured. Confirm script and collect requests in production and the project dashboard before claiming tracking is active.
 
-Search Console verification and sitemap submission require a signed-in Google account; publishing the verification file alone does not perform those account actions.
+Search Console verification and sitemap submission were completed through the owner-selected signed-in Chrome profile on 2026-11-03. These account actions are separate from deployment.
