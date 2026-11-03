@@ -41,7 +41,7 @@ export function registerBlogs(app,ctx){
   app.get('/sitemap-blogs.xml',async(req,res)=>{
     const db=databaseConfigured?await getDb():null
     const posts=db?await db.collection('blogPosts').find(published(),{projection:{slug:1}}).limit(45000).toArray():[]
-    res.type('application/xml').set('Cache-Control','public, max-age=300').send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${posts.filter(post=>slugPattern.test(post.slug)).map(post=>`<url><loc>https://smartxapp-studio.vercel.app/blogs/${post.slug}</loc></url>`).join('')}</urlset>`)
+    res.type('application/xml').set('Cache-Control','public, max-age=300').send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://smartxapp-studio.vercel.app/blogs</loc></url>${posts.filter(post=>slugPattern.test(post.slug)).map(post=>`<url><loc>https://smartxapp-studio.vercel.app/blogs/${post.slug}</loc></url>`).join('')}</urlset>`)
   })
   app.get('/api/admin/blogs',auth,async(req,res)=>{
     const {page,limit}=pagination(req.query),collection=req.db.collection('blogPosts'),filter={}

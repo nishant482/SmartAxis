@@ -57,6 +57,7 @@ test('blog CMS protects writes, separates drafts, filters categories and manages
   }
   const values={title:'A safe learning guide',slug:'safe-learning-guide',category:'Study Material',excerpt:'A short, helpful learning guide for mobile users.',content:'A real article body written for the test.\n\nA second paragraph with useful details.',published:false}
   try{
+    assert.ok((await(await request('/sitemap-blogs.xml')).text()).includes('/blogs</loc>'),'Blog sitemap includes its public landing page even before articles are published')
     assert.equal((await request('/api/admin/blogs',{authenticated:false})).status,401)
     assert.equal((await request('/api/admin/blogs',{method:'POST',body:values,authenticated:false})).status,401)
     const login=await request('/api/admin/login',{method:'POST',body:{username:'editor',password}})
